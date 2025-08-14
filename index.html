@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -130,7 +131,7 @@
     }
     #benefits .lead{font-size:18px; color:var(--muted); margin:8px 0 18px}
     /* Proof bar – roomy and centered */
-    .stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:6px 0 18px}
+    .stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:6px 0 10px}
     @media (max-width:760px){.stats{grid-template-columns:1fr 1fr}}
     .stat{display:flex; align-items:baseline; gap:10px; padding:14px 16px; border:1px solid var(--line); border-radius:14px;
           background:linear-gradient(180deg,color-mix(in oklab,var(--panel) 92%,#000 8%),color-mix(in oklab,var(--panel) 86%,#000 14%))}
@@ -190,7 +191,7 @@
     .bar > span{position:absolute; inset:0; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-2));}
     .bar.grow > span{transition:width .9s cubic-bezier(.2,.65,.2,1)}
 
-    /* ================= SERVICES/RESULTS/CONTACT (unchanged styles trimmed) ================= */
+    /* ================= SERVICES/RESULTS/CONTACT (trimmed styles) ================= */
     .services{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,2.2vw,22px)}
     @media (max-width:900px){.services{grid-template-columns:1fr 1fr}}
     @media (max-width:580px){.services{grid-template-columns:1fr}}
@@ -331,21 +332,24 @@
           When people discover you, automations reply, qualify, and book time — without manual chasing.
         </p>
 
-        <!-- Proof bar (animated stats) -->
+        <!-- KPI Set B with simplified wording (non-guaranteed) -->
         <div class="stats" aria-label="Key metrics">
           <div class="stat">
-            <span class="num" data-count="30" data-suffix="d">0</span>
-            <span class="label">to assistant mentions</span>
+            <span class="num" data-count="45" data-suffix="d">0</span>
+            <span class="label">to your website showing up in AI search (typical 30–45d)</span>
           </div>
           <div class="stat">
-            <span class="num" data-count="2" data-suffix="×">0</span>
-            <span class="label">reply rate</span>
+            <span class="num" data-count="25" data-suffix="%">0</span>
+            <span class="label">of meetings/bookings influenced by automations</span>
           </div>
           <div class="stat">
-            <span class="num" data-count="70" data-suffix="%">0</span>
-            <span class="label">less triage time</span>
+            <span class="num" data-count="30" data-suffix="%">0</span>
+            <span class="label">share of answers citing Nova Automations</span>
           </div>
         </div>
+        <small style="color:var(--muted);display:block;margin-top:6px">
+          Directional ranges from recent {{industry}} work; results vary and aren’t guaranteed.
+        </small>
 
         <!-- Outcomes (spacious, 2 columns) -->
         <div class="outcomes" aria-label="Outcomes we optimize for">
@@ -694,15 +698,34 @@
       obs.observe(root);
 
       function startPipeline(){
-        // Step 1: Search queries typing loop
+        // Step 1: Search queries typing loop (SaaS, e-comm, real estate, marketing)
         const qEl=document.getElementById('hw-query');
         const caret=document.getElementById('caret-search');
         const queries=[
-          "automate LinkedIn replies",
-          "screen CVs automatically",
-          "email drip setup",
-          "WhatsApp client onboarding",
-          "appear in ChatGPT answers"
+          // SaaS / B2B software
+          "best {category} tool for {{industry}} SMBs",
+          "{your brand} vs {competitor} — which for {use-case}?",
+          "does {brand} integrate with Slack/HubSpot/Salesforce?",
+          "pricing for {brand} with {N} seats",
+          "GDPR/HIPAA compliant {category}?",
+          // E-commerce
+          "best {category} app for Shopify stores",
+          "reduce cart abandonment with {brand}/{tool}",
+          "does {brand} connect to Shopify/Stripe/Klaviyo?",
+          "A/B testing tools for PDPs in {{industry}}",
+          "how to sync UGC reviews to PDP with {brand}",
+          // Real estate
+          "best CRM for real-estate agents in {{industry}}",
+          "{brand} vs {competitor} for lead routing & follow-ups",
+          "does {brand} integrate with Zillow/Realtor.com?",
+          "text-to-tour automation for listings",
+          "brokerage-wide drip campaigns with {brand}",
+          // Marketing
+          "best marketing automation for {{industry}}",
+          "multi-channel sequences (email + WhatsApp) with {brand}",
+          "connect {brand} to Meta/Google Ads audiences",
+          "lead scoring rules for {category} in B2B",
+          "track bookings from AI answers with {brand}"
         ];
         let qi=0, ci=0, deleting=false;
         caret.classList.add('typing');
@@ -774,3 +797,4 @@
   </script>
 </body>
 </html>
+```
