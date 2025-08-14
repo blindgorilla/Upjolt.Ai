@@ -32,33 +32,33 @@
     .container{width:min(100% - 32px, var(--container)); margin-inline:auto}
 
     /* ================= HEADER ================= */
-    header{position:fixed; inset-inline:0; top:0; z-index:60; backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px);
+    header{position:fixed; inset-inline:0; top:0; z-index:70; backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px);
       background: color-mix(in oklab, var(--bg) 70%, transparent); border-bottom:1px solid transparent; transition:background .3s,border-color .3s}
     header.scrolled{background: color-mix(in oklab, var(--bg) 90%, #000 10%); border-color:var(--line)}
     .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
     .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
-    /* === Animated brand symbol === */
+
+    /* === Upjolt animated symbol (eye-catching) === */
     .brand .logo{
-      position:relative; width:34px;height:34px;border-radius:10px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      box-shadow:0 6px 16px rgba(20,180,255,.35), inset 0 0 20px rgba(255,255,255,.15);
-      overflow:hidden;
-      isolation:isolate;
+      position:relative; width:36px;height:36px;border-radius:10px; overflow:hidden; isolation:isolate;
+      background:radial-gradient(120% 120% at 20% 20%, #7fd3ff 0 35%, #2cc9f0 60%, #0a2a4a 100%);
+      box-shadow:0 10px 24px rgba(32,178,255,.35), inset 0 0 28px rgba(255,255,255,.25);
     }
-    /* spinning glow */
-    .brand .logo::before{
-      content:""; position:absolute; inset:-35% -35%;
-      background:conic-gradient(from 0deg, rgba(255,255,255,.35), rgba(255,255,255,0) 55%, rgba(255,255,255,.35));
-      filter:blur(10px); mix-blend-mode:screen; animation:spin 6s linear infinite;
-    }
-    /* orbiting spark */
+    /* Pulsing rings */
+    .brand .logo::before,
     .brand .logo::after{
-      content:""; position:absolute; width:8px;height:8px;border-radius:999px; background:#fff;
-      top:50%; left:50%; transform-origin:-12px -12px; box-shadow:0 0 12px #9fe6ff, 0 0 20px #22d3ee;
-      animation:orbit 3.8s linear infinite;
+      content:""; position:absolute; inset:-2px; border-radius:12px; pointer-events:none;
+      border:2px solid rgba(255,255,255,.35); filter:blur(1px); animation:pulseRing 2.4s ease-out infinite;
     }
-    @keyframes spin{to{transform:rotate(360deg)}}
-    @keyframes orbit{to{transform:rotate(360deg)}}
+    .brand .logo::after{animation-delay:1.2s; opacity:.7}
+    @keyframes pulseRing{0%{transform:scale(.7);opacity:.8} 70%{transform:scale(1.25);opacity:0} 100%{opacity:0}}
+    /* Lightning jolt */
+    .bolt{position:absolute; left:-30%; top:-10%; width:160%; height:160%; transform:rotate(-22deg);
+      background:
+        linear-gradient(transparent 48%, rgba(255,255,255,.9) 52% 56%, transparent 60%),
+        linear-gradient(90deg, transparent 45%, rgba(255,255,255,.8) 50%, transparent 55%);
+      mix-blend-mode:overlay; animation:jolt 1.8s ease-in-out infinite}
+    @keyframes jolt{0%{opacity:0; transform:rotate(-22deg) translateX(-30%)} 35%{opacity:.9} 60%{opacity:.2; transform:rotate(-22deg) translateX(5%)} 100%{opacity:0; transform:rotate(-22deg) translateX(10%)}}
 
     nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
     nav a{padding:8px 10px; border-radius:10px; color:var(--muted); font-weight:600; position:relative; transition:color .2s,opacity .2s; opacity:.9}
@@ -207,8 +207,6 @@
     .stat-chip{display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.03)}
     .stat-chip .num{font-size:26px}
 
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(32,178,255,.45)}100%{box-shadow:0 0 0 20px rgba(32,178,255,0)}}
-
     /* ================= SERVICES/RESULTS/CONTACT (cards) ================= */
     .services{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,2.2vw,22px)}
     @media (max-width:900px){.services{grid-template-columns:1fr 1fr}}
@@ -219,7 +217,7 @@
     .service-card:hover{transform:translateY(-4px); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
     .icon{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; margin-bottom:12px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#031322; box-shadow:inset 0 0 18px rgba(255,255,255,.2)}
 
-    /* ===== Selected Results visuals ===== */
+    /* ===== Selected Results visuals (brand-relevant) ===== */
     .portfolio-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,2vw,18px)}
     @media (max-width:980px){.portfolio-grid{grid-template-columns:1fr 1fr}}
     @media (max-width:600px){.portfolio-grid{grid-template-columns:1fr}}
@@ -227,67 +225,62 @@
     .work .overlay{position:absolute; inset:auto 0 0 0; padding:12px 14px; background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));
       display:flex; align-items:flex-end; gap:8px; min-height:46%; color:#ecf3ff}
     .tag{display:inline-block; padding:4px 8px; font-size:12px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.25)}
-    /* the animated viz layer */
     .viz{position:absolute; inset:0; overflow:hidden; border-radius:14px; background:radial-gradient(120% 120% at -10% -10%, #142036 0%, transparent 55%), #0b1426}
     .work .viz > *{position:absolute}
 
-    /* --- AI Visibility: network + scan --- */
-    .viz.ai .scan{inset:0; background:linear-gradient(90deg, transparent 40%, rgba(120,220,255,.16) 50%, transparent 60%); transform:translateX(-100%); animation:scanX 5s linear infinite}
-    @keyframes scanX{to{transform:translateX(100%)}}
-    .viz.ai .node{width:10px;height:10px;border-radius:999px;background:#8fe6ff; box-shadow:0 0 12px #8fe6ff, 0 0 24px #22d3ee; animation:popPulse 2.4s ease-in-out infinite}
-    .viz.ai .n1{left:14%; top:22%}
-    .viz.ai .n2{left:46%; top:32%; animation-delay:.4s}
-    .viz.ai .n3{left:70%; top:18%; animation-delay:.8s}
-    .viz.ai .n4{left:26%; top:58%; animation-delay:1.2s}
-    .viz.ai .n5{left:60%; top:64%; animation-delay:1.6s}
-    .viz.ai .link{height:2px; background:linear-gradient(90deg, rgba(150,220,255,.2), rgba(150,220,255,.6), rgba(150,220,255,.2)); transform-origin:left center; opacity:.7}
-    /* fixed lines */
-    .viz.ai .l1{left:16%; top:24%; width:34%; transform:rotate(10deg)}
-    .viz.ai .l2{left:48%; top:34%; width:26%; transform:rotate(-12deg)}
-    .viz.ai .l3{left:20%; top:60%; width:42%; transform:rotate(8deg)}
-    .viz.ai .l4{left:46%; top:34%; width:40%; transform:rotate(26deg)}
-    @keyframes popPulse{0%,100%{transform:scale(.9)} 50%{transform:scale(1.15)}}
+    /* --- 1) AI Visibility: search results + highlighted brand --- */
+    .viz.search .bar{left:8%; right:8%; top:12%; height:28px; border-radius:10px; border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.06)}
+    .viz.search .qdot{left:10%; top:17%; width:10px;height:10px;border-radius:999px;background:#9fe}
+    .viz.search .res{left:8%; right:8%; height:40px; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08)}
+    .viz.search .r1{top:30%} .viz.search .r2{top:43%} .viz.search .r3{top:56%}
+    .viz.search .brand{top:69%; left:8%; right:8%; height:46px; border-radius:12px; background:rgba(96,165,250,.15);
+      border:1px solid rgba(96,165,250,.55); box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:brandPop 2.2s ease-out infinite}
+    .viz.search .brand::after{content:" cited"; position:absolute; right:10px; top:10px; padding:2px 8px; font-size:12px; border-radius:999px;
+      color:#041318; background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+    @keyframes brandPop{0%{transform:translateY(20px); opacity:.5} 30%{transform:none; opacity:1} 60%{box-shadow:0 0 0 14px rgba(32,178,255,0)} 100%{box-shadow:0 0 0 0 rgba(32,178,255,0)}}
 
-    /* --- Social: calendar + bubbles --- */
-    .viz.social .calendar{left:8%; top:12%; width:54%; height:58%; display:grid; grid-template-columns:repeat(7,1fr); grid-template-rows:repeat(4,1fr); gap:4px}
-    .viz.social .cell{background:rgba(255,255,255,.06); border-radius:6px}
-    .viz.social .cell:nth-child(odd){animation:glow 4s ease-in-out infinite}
-    .viz.social .cell:nth-child(even){animation:glow 4s ease-in-out 1.2s infinite}
-    @keyframes glow{0%,100%{box-shadow:none} 50%{box-shadow:0 0 0 2px rgba(98,194,255,.35) inset}}
-    .viz.social .bubble{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:999px; height:16px}
-    .viz.social .b1{right:12%; top:26%; width:120px; animation:slide 5.2s ease-in-out infinite}
-    .viz.social .b2{right:10%; top:44%; width:160px; animation:slide 5.2s ease-in-out .8s infinite}
-    @keyframes slide{0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}}
+    /* --- 2) Social: post + DM → calendar --- */
+    .viz.social2 .icons{left:6%; top:10%; display:flex; gap:8px}
+    .viz.social2 .i{width:20px;height:20px;border-radius:6px;background:#9fe;filter:grayscale(.2)}
+    .viz.social2 .post{left:10%; top:28%; width:60%; height:24%; border-radius:12px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.06); animation:float 4s ease-in-out infinite}
+    .viz.social2 .dm{right:10%; top:56%; width:38%; height:14%; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); animation:float 4s ease-in-out 1s infinite}
+    .viz.social2 .cal{right:12%; bottom:16%; width:36px;height:36px;border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; display:grid; place-items:center; transform:scale(.6); opacity:.6; animation:book 5s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-6px)}}
+    @keyframes book{40%{transform:scale(1); opacity:1} 70%{box-shadow:0 0 0 16px rgba(32,178,255,0)}}
 
-    /* --- CV Screening: document + scanline --- */
-    .viz.cv .doc{left:12%; top:14%; width:54%; height:64%; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.25)}
-    .viz.cv .line{left:16%; right:16%; height:8px; background:rgba(255,255,255,.1); border-radius:6px}
-    .viz.cv .line.l1{top:20%}.viz.cv .line.l2{top:32%}.viz.cv .line.l3{top:44%}.viz.cv .line.l4{top:56%}
-    .viz.cv .scan{left:8%; right:8%; height:18px; top:-10%; background:linear-gradient(180deg,transparent, rgba(98,194,255,.2), transparent); animation:scanY 3.6s linear infinite}
-    @keyframes scanY{to{top:90%}}
-    .viz.cv .star{right:12%; bottom:16%; width:28px;height:28px;background:radial-gradient(circle at 30% 30%,#fff, #9fe); border-radius:6px; transform:rotate(45deg); filter:blur(.3px); animation:twinkle 2.2s ease-in-out infinite}
+    /* --- 3) CV Screening: CV gets scanned and best picked --- */
+    .viz.cv .doc{left:10%; top:12%; width:56%; height:64%; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.25)}
+    .viz.cv .line{left:14%; right:18%; height:10px; background:rgba(255,255,255,.1); border-radius:6px}
+    .viz.cv .l1{top:22%}.viz.cv .l2{top:36%}.viz.cv .l3{top:50%}.viz.cv .l4{top:64%}
+    .viz.cv .scan{left:8%; right:8%; height:18px; top:-8%; background:linear-gradient(180deg,transparent, rgba(98,194,255,.25), transparent); animation:scanY 3.4s linear infinite}
+    @keyframes scanY{to{top:86%}}
+    .viz.cv .good{right:12%; bottom:22%; width:28px;height:28px;border-radius:8px; background:radial-gradient(circle at 30% 30%,#fff,#9fe); transform:rotate(45deg); animation:twinkle 2.2s ease-in-out infinite}
+    .viz.cv .bad{right:10%; top:18%; width:16px;height:16px;border-radius:4px; background:#d66; opacity:.8}
     @keyframes twinkle{50%{transform:rotate(45deg) scale(1.12)}}
 
-    /* --- Email: envelope + plane path --- */
-    .viz.email .env{left:12%; bottom:16%; width:40%; height:26%; border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06)); border:1px solid rgba(255,255,255,.3)}
-    .viz.email .flap{left:12%; bottom:26%; width:40%; height:14%; background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05)); clip-path:polygon(0 0,100% 0,50% 100%)}
-    .viz.email .track{left:58%; top:26%; width:34%; height:34%; border-radius:50%; border:2px dashed rgba(150,220,255,.4); animation:spin 8s linear infinite}
-    .viz.email .plane{left:72%; top:40%; width:0;height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-bottom:16px solid #9fe; transform:rotate(20deg); animation:plane 2.8s ease-in-out infinite}
-    @keyframes plane{50%{transform:translate(10px,-12px) rotate(25deg)}}
+    /* --- 4) Email Automation: envelope → calendar booked --- */
+    .viz.email .env{left:12%; bottom:16%; width:42%; height:26%; border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06)); border:1px solid rgba(255,255,255,.3)}
+    .viz.email .flap{left:12%; bottom:26%; width:42%; height:14%; background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05)); clip-path:polygon(0 0,100% 0,50% 100%)}
+    .viz.email .plane{left:60%; top:38%; width:0;height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-bottom:16px solid #9fe; transform:rotate(20deg); animation:plane 2.8s ease-in-out infinite}
+    .viz.email .cal{right:12%; bottom:18%; width:38px;height:38px;border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; display:grid; place-items:center; transform:scale(.7); opacity:.7; animation:book 4.8s ease-in-out infinite}
+    @keyframes plane{50%{transform:translate(12px,-12px) rotate(25deg)}}
 
-    /* --- WhatsApp: phone + chat bubbles --- */
-    .viz.wa .phone{right:10%; top:12%; width:44%; height:70%; border-radius:16px; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.04)}
-    .viz.wa .msg{left:8%; right:14%; height:14px; border-radius:10px; background:rgba(255,255,255,.12)}
+    /* --- 5) WhatsApp: messages → calendar booked --- */
+    .viz.wa .phone{right:8%; top:10%; width:46%; height:72%; border-radius:16px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.04)}
+    .viz.wa .msg{left:10%; right:16%; height:14px; border-radius:10px; background:rgba(255,255,255,.12)}
     .viz.wa .m1{top:22%; animation:chat 4s ease-in-out infinite}
-    .viz.wa .m2{top:36%; right:8%; left:auto; width:60%; background:rgba(255,255,255,.2); animation:chat 4s ease-in-out .6s infinite}
+    .viz.wa .m2{top:36%; right:10%; left:auto; width:60%; background:rgba(255,255,255,.2); animation:chat 4s ease-in-out .6s infinite}
     .viz.wa .m3{top:52%; animation:chat 4s ease-in-out 1.2s infinite}
+    .viz.wa .cal{left:12%; bottom:14%; width:38px;height:38px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; display:grid; place-items:center; transform:scale(.7); opacity:.7; animation:book 5.2s ease-in-out infinite}
     @keyframes chat{50%{transform:translateY(-6px)}}
 
-    /* --- Bundle: flowing pipeline --- */
-    .viz.bundle .pipe{left:10%; right:10%; top:48%; height:8px; border-radius:8px; background:linear-gradient(90deg, rgba(120,200,255,.1), rgba(120,200,255,.45), rgba(120,200,255,.1)); background-size:200% 100%; animation:flow 3.5s linear infinite}
+    /* --- 6) Bundle: ChatGPT → calendar → $ --- */
+    .viz.bundle .node{width:36px;height:36px;border-radius:50%; display:grid; place-items:center}
+    .viz.bundle .gpt{left:10%; top:44%; background:radial-gradient(circle at 30% 30%,#fff,#9fe); color:#041318; font-weight:800}
+    .viz.bundle .cal{left:46%; top:42%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; font-weight:800}
+    .viz.bundle .usd{right:12%; top:44%; background:#9fe; color:#041318; font-weight:800}
+    .viz.bundle .path{left:16%; right:18%; top:50%; height:8px; border-radius:8px; background:linear-gradient(90deg, rgba(120,200,255,.1), rgba(120,200,255,.55), rgba(120,200,255,.1)); background-size:200% 100%; animation:flow 3.2s linear infinite}
     @keyframes flow{to{background-position:200% 0}}
-    .viz.bundle .dot{width:12px;height:12px;border-radius:999px;background:#9fe; box-shadow:0 0 14px #9fe}
-    .viz.bundle .d1{left:10%; top:43%}.viz.bundle .d2{left:32%; top:43%}.viz.bundle .d3{left:60%; top:43%}.viz.bundle .d4{right:10%; top:43%}
 
     /* ============== SCROLL ANIMS ============== */
     [data-animate]{opacity:0; transform:translateY(14px)}
@@ -302,11 +295,23 @@
 
     /* ===== Sticky CTA button ===== */
     .sticky-cta{
-      position:fixed; right:16px; bottom:16px; z-index:70;
+      position:fixed; right:16px; bottom:16px; z-index:80;
       transform:translateY(20px); opacity:0; pointer-events:none;
       transition:transform .25s ease, opacity .25s ease;
     }
     .sticky-cta.show{transform:none; opacity:1; pointer-events:auto}
+
+    /* ===== Footer (clean, 3-column) ===== */
+    footer{padding:28px 0; border-top:1px solid var(--line); color:var(--muted)}
+    .foot{display:grid; grid-template-columns:1.2fr .9fr .9fr; gap:16px; align-items:start}
+    @media (max-width:860px){.foot{grid-template-columns:1fr}}
+    .foot h4{margin:0 0 8px}
+    .foot ul{list-style:none; padding:0; margin:0; display:grid; gap:6px}
+    .foot a{color:var(--muted)}
+    .foot a:hover{color:var(--text)}
+    .foot .brand-foot{display:flex; align-items:center; gap:10px; font-weight:700}
+    .foot .logo{width:26px;height:26px;border-radius:8px; background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+    .foot small{display:block; margin-top:6px}
   </style>
 </head>
 <body>
@@ -314,7 +319,7 @@
   <header id="site-header">
     <div class="container nav">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <div class="logo" aria-hidden="true"><span class="bolt" aria-hidden="true"></span></div>
         <span>Upjolt</span>
       </div>
       <nav id="main-nav" aria-label="Primary" aria-expanded="false">
@@ -399,6 +404,7 @@
           When people discover you, automations reply, qualify, and book time — without manual chasing.
         </p>
 
+        <!-- KPI set (simple English) -->
         <div class="stats" aria-label="Key metrics">
           <div class="stat">
             <span class="num" data-count="45" data-suffix="d">0</span>
@@ -577,9 +583,6 @@
           </div>
           <h3>AI Search Visibility</h3>
           <p>Make assistants like ChatGPT/Copilot cite you. We add structured data, source-worthy content, and automation that publishes and refreshes it.</p>
-          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
-            <li>Schema & entity mapping</li><li>Evidence pages & citations</li><li>Content automations & feeds</li>
-          </ul>
         </article>
 
         <article class="service-card" data-animate="pop">
@@ -587,10 +590,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3zM7 9h10v2H7zM7 13h10v2H7zM7 17h7v2H7z"/></svg>
           </div>
           <h3>Social Media Automation</h3>
-          <p>Daily posting, scheduling, and inbox actions — including auto-replies, DMs, and engagement rules.</p>
-          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
-            <li>Content calendar & approvals</li><li>Comment/DM responders</li><li>Lead capture to CRM</li>
-          </ul>
+          <p>Posting, automated replies, and booking — end to end.</p>
         </article>
 
         <article class="service-card" data-animate="pop">
@@ -598,10 +598,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12v6H6zM4 10h16v10H4zM8 12h8v2H8zM8 15h5v2H8z"/></svg>
           </div>
           <h3>CV Screening Automation</h3>
-          <p>Parse resumes, rank candidates, and auto-shortlist to your ATS — with auditable criteria.</p>
-          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
-            <li>Resume parsing & scoring</li><li>Knock-out & priority rules</li><li>ATS sync + alerts</li>
-          </ul>
+          <p>We screen CVs for you and send the best candidates — automatically.</p>
         </article>
 
         <article class="service-card" data-animate="pop">
@@ -609,10 +606,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2 6l10 7L22 6v12H2zM22 6H2l10 7z"/></svg>
           </div>
           <h3>Email Automation</h3>
-          <p>Behavior-based drips, sequences, and transactional triggers that turn interest into meetings.</p>
-          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
-            <li>Lifecycle & nurture flows</li><li>Event-based triggers</li><li>Deliverability hardening</li>
-          </ul>
+          <p>Sequences that convert — behavior triggers to booked meetings.</p>
         </article>
 
         <article class="service-card" data-animate="pop">
@@ -620,10 +614,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.1 2 11c0 1.7.5 3.3 1.4 4.7L2 22l6.6-1.9c1.1.3 2.2.5 3.4.5 5.5 0 10-4.1 10-9.1S17.5 2 12 2z"/></svg>
           </div>
           <h3>WhatsApp Automation</h3>
-          <p>Onboarding, reminders, and support flows that feel human — at scale.</p>
-          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
-            <li>Templates & quick-replies</li><li>Handover to human routing</li><li>CSAT & follow-ups</li>
-          </ul>
+          <p>Receives messages, replies instantly, and books time.</p>
         </article>
 
         <article class="service-card" data-animate="pop">
@@ -631,84 +622,83 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7zm9-2.2L6 7.2V16l6 2.8 6-2.8V7.2l-6-2.4z"/></svg>
           </div>
           <h3>Implementation Bundle</h3>
-          <p>End-to-end setup: AI visibility + social + email + WhatsApp + ATS. One roadmap, one team, one invoice.</p>
+          <p>AI discovery → WhatsApp booking — tracked end to end.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ================= RESULTS ================= -->
+  <!-- ================= RESULTS (with new visual animations) ================= -->
   <section id="portfolio">
     <div class="container">
       <div class="section-head">
         <h2 data-animate="fade-up">Selected Results</h2>
-        <p data-animate="fade-left">Placeholder case studies — replace with your metrics, stacks, and screenshots.</p>
+        <p data-animate="fade-left">Replace with your metrics, stacks, and screenshots — the animations are self-contained.</p>
       </div>
 
       <div class="portfolio-grid">
-        <!-- AI Visibility -->
+        <!-- 1) Invisible → Cited (search result highlight) -->
         <div class="work" data-animate="fade-up">
-          <div class="viz ai">
-            <span class="scan"></span>
-            <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="node n5"></span>
-            <span class="link l1"></span><span class="link l2"></span><span class="link l3"></span><span class="link l4"></span>
+          <div class="viz search">
+            <div class="bar"></div><div class="qdot"></div>
+            <div class="res r1"></div><div class="res r2"></div><div class="res r3"></div>
+            <div class="brand"></div>
           </div>
-          <div class="overlay"><div><span class="tag">AI Visibility</span><h4>From Invisible to Cited</h4><small>Entity schema + citation content → assistant mentions within 30 days.</small></div></div>
+          <div class="overlay"><div><span class="tag">AI Visibility</span><h4>From Invisible to Cited</h4><small>Search results show your brand — assistants link back to you.</small></div></div>
         </div>
 
-        <!-- Social -->
+        <!-- 2) Posting + replies → booking (social icons + DM + calendar) -->
         <div class="work" data-animate="fade-up">
-          <div class="viz social">
-            <div class="calendar">
-              <!-- 28 cells -->
-              <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-              <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-              <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-              <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-            </div>
-            <div class="bubble b1"></div>
-            <div class="bubble b2"></div>
+          <div class="viz social2">
+            <div class="icons"><div class="i"></div><div class="i"></div><div class="i"></div></div>
+            <div class="post"></div>
+            <div class="dm"></div>
+            <div class="cal">✓</div>
           </div>
-          <div class="overlay"><div><span class="tag">Social</span><h4>Hands-Off Posting & Inbox</h4><small>Scheduled posts + smart DMs → 2× replies, consistent weekly cadence.</small></div></div>
+          <div class="overlay"><div><span class="tag">Social</span><h4>Posting, Replies & Booking</h4><small>Auto-posts, smart DMs, and calendar links — done.</small></div></div>
         </div>
 
-        <!-- CV Screening -->
+        <!-- 3) CV Screening (scan + best pick) -->
         <div class="work" data-animate="fade-up">
           <div class="viz cv">
             <div class="doc"></div>
             <div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><div class="line l4"></div>
             <div class="scan"></div>
-            <div class="star"></div>
+            <div class="bad"></div>
+            <div class="good"></div>
           </div>
-          <div class="overlay"><div><span class="tag">Recruitment</span><h4>Shortlists in Minutes</h4><small>Parsing + scoring + ATS sync → time-to-shortlist down 70%.</small></div></div>
+          <div class="overlay"><div><span class="tag">Recruitment</span><h4>We Screen CVs For You</h4><small>Parsing & ranking → shortlist delivered to your ATS.</small></div></div>
         </div>
 
-        <!-- Email -->
+        <!-- 4) Email sequences → booked -->
         <div class="work" data-animate="fade-up">
           <div class="viz email">
-            <div class="env"></div><div class="flap"></div><div class="track"></div><div class="plane"></div>
+            <div class="env"></div><div class="flap"></div><div class="plane"></div><div class="cal">✓</div>
           </div>
-          <div class="overlay"><div><span class="tag">Email</span><h4>Sequences that Convert</h4><small>Behavior triggers + deliverability → meetings booked on autopilot.</small></div></div>
+          <div class="overlay"><div><span class="tag">Email</span><h4>Sequences that Convert</h4><small>Drips + triggers → calendar booked.</small></div></div>
         </div>
 
-        <!-- WhatsApp -->
+        <!-- 5) WhatsApp → booked -->
         <div class="work" data-animate="fade-up">
           <div class="viz wa">
             <div class="phone"></div>
             <div class="msg m1" style="width:70%"></div>
             <div class="msg m2"></div>
             <div class="msg m3" style="width:56%"></div>
+            <div class="cal">✓</div>
           </div>
-          <div class="overlay"><div><span class="tag">WhatsApp</span><h4>Instant Answers, Human When Needed</h4><small>Onboarding & support flows + agent handover → higher CSAT.</small></div></div>
+          <div class="overlay"><div><span class="tag">WhatsApp</span><h4>Instant Answers → Booking</h4><small>Conversations that end with a time on the calendar.</small></div></div>
         </div>
 
-        <!-- Full Implementation -->
+        <!-- 6) Full Funnel (ChatGPT → calendar → $) -->
         <div class="work" data-animate="fade-up">
           <div class="viz bundle">
-            <div class="pipe"></div>
-            <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><div class="dot d4"></div>
+            <div class="node gpt">G</div>
+            <div class="node cal">✓</div>
+            <div class="node usd">$</div>
+            <div class="path"></div>
           </div>
-          <div class="overlay"><div><span class="tag">Bundle</span><h4>Full-Funnel Automation</h4><small>AI discovery → WhatsApp booking — tracked end to end.</small></div></div>
+          <div class="overlay"><div><span class="tag">Bundle</span><h4>ChatGPT to Revenue</h4><small>AI discovery → booked meeting → closed won.</small></div></div>
         </div>
       </div>
     </div>
@@ -738,7 +728,7 @@
         <aside class="card" data-animate="fade-up">
           <h3>Implementation details</h3>
           <p>We integrate with your current stack. Typical toolchain examples:</p>
-          <ul class="list">
+          <ul class="list" style="list-style:none; padding:0; margin:8px 0; display:grid; gap:10px; color:var(--muted)">
             <li>🧠 AI Search: schema, content feeds, knowledge pages</li>
             <li>📣 Social: schedulers, auto-inbox, CRM leads</li>
             <li>🧾 CV: parsing, scoring rules, ATS sync</li>
@@ -747,14 +737,39 @@
           </ul>
           <hr style="border-color:var(--line); margin:16px 0;">
           <p><strong>Based in:</strong> Limassol, Cyprus • <strong>Working globally</strong></p>
-          <img src="https://placehold.co/800x300/png?text=Global+Coverage+Map+Placeholder" alt="Map placeholder" style="margin-top:10px;border-radius:10px;border:1px solid var(--line)">
         </aside>
       </div>
     </div>
   </section>
 
+  <!-- ================= FOOTER (clean) ================= -->
   <footer>
-    <div class="container">© <span id="year"></span> Upjolt · AI Visibility & Workflow Automation</div>
+    <div class="container foot">
+      <div>
+        <div class="brand-foot">
+          <div class="logo" aria-hidden="true"></div><span>Upjolt</span>
+        </div>
+        <small>AI Visibility & Workflow Automation</small>
+        <small>© <span id="year"></span> Upjolt — All rights reserved.</small>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#benefits">About</a></li>
+          <li><a href="#process">How we work</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Results</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@upjolt.ai">hello@upjolt.ai</a></li>
+          <li>Limassol, Cyprus • Work globally</li>
+        </ul>
+      </div>
+    </div>
   </footer>
 
   <!-- ===== Sticky CTA (appears after scrolling past hero) ===== -->
@@ -875,21 +890,6 @@
       nums.forEach(n=>io.observe(n));
     })();
 
-    // ===== Selected Results: start animations when in view (optional hook) =====
-    (function(){
-      const cards=document.querySelectorAll('.work');
-      if(!cards.length) return;
-      const ob=new IntersectionObserver((entries)=>{
-        entries.forEach(en=>{
-          if(en.isIntersecting){
-            en.target.classList.add('play'); // reserved if you want play-state toggles
-            ob.unobserve(en.target);
-          }
-        });
-      },{threshold:.3});
-      cards.forEach(c=>ob.observe(c));
-    })();
-
     // ===== Sticky CTA visibility (after hero) =====
     (function(){
       const sticky=document.getElementById('stickyCta');
@@ -909,5 +909,5 @@
 
 **How to run locally**
 
-1. Copy everything above into a file named `index.html`.
-2. Double-click to open it in your browser (or run a static server like `npx serve .`).
+1. Save the code as `index.html`.
+2. Open it in your browser (double-click), or run a simple static server (`npx serve .`) for a cleaner preview.
