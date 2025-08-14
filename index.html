@@ -9,15 +9,15 @@
     /* ================= THEME ================= */
     :root{
       --bg:#0b0f17; --panel:#0f1724; --text:#e6edf6; --muted:#a6b4c6; --line:#23324a;
-      --accent:#60a5fa; --accent-2:#22d3ee; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
-      --container:1200px; --section-pad:clamp(64px,8vw,120px);
+      --accent:#60a5fa; --accent-2:#22d3ee; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+      --container:1120px; --section-pad:clamp(64px,8vw,120px);
     }
 
     /* =============== BASE / RESET =============== */
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; line-height:1.6; color:var(--text);
+      margin:0; line-height:1.65; color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, "Apple Color Emoji","Segoe UI Emoji";
       background:
         radial-gradient(1200px 800px at 10% -10%, #12203a 0%, transparent 60%) no-repeat,
@@ -112,76 +112,70 @@
     .answer-footer .mini::after{content:""; position:absolute; inset:0; transform:translateX(-100%); background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
       animation:shimmer 2.2s infinite .4s}
 
-    /* =============== SECTIONS =============== */
+    /* =============== SECTION HEADERS =============== */
     section{padding:var(--section-pad) 0; position:relative}
     .section-head{margin-bottom:28px; display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap}
     .section-head h2{font-size:clamp(28px,4.2vw,44px); margin:0; letter-spacing:-.02em}
     .section-head p{margin:0; color:var(--muted); max-width:800px}
 
-    /* ABOUT / WHY TEAMS CHOOSE UPJOLT */
-    .about-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(24px,4vw,48px); align-items:stretch}
-    @media (max-width:960px){.about-grid{grid-template-columns:1fr}}
-    .card{background:color-mix(in oklab,var(--panel) 90%, #000 10%); border:1px solid color-mix(in oklab, var(--line) 80%, #fff 20%); border-radius:var(--radius); padding:clamp(16px,2vw,24px); box-shadow:var(--shadow)}
-    .card h3{margin-top:0}
-
-    /* Outcomes: clean visual tiles */
-    .outcomes{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:14px}
-    @media (max-width:700px){.outcomes{grid-template-columns:1fr 1fr}}
-    .outcome{
-      border:1px solid var(--line); border-radius:12px; padding:12px;
-      background:linear-gradient(180deg, color-mix(in oklab,var(--panel) 92%, #000 8%), color-mix(in oklab,var(--panel) 86%, #000 14%));
-      display:grid; grid-template-columns: 30px 1fr; gap:10px; align-items:center;
-      transition:transform .15s ease, border-color .2s ease;
+    /* ================= BENEFITS (single wide card) ================= */
+    #benefits .card{
+      background:color-mix(in oklab,var(--panel) 90%, #000 10%);
+      border:1px solid color-mix(in oklab, var(--line) 78%, #fff 22%);
+      border-radius:var(--radius);
+      padding:clamp(20px,3vw,32px);
+      box-shadow:var(--shadow);
+      max-width:980px;
+      margin-inline:auto;
     }
-    .outcome:hover{transform:translateY(-2px); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
-    .out-ico{font-size:20px; filter: drop-shadow(0 2px 8px rgba(0,0,0,.2))}
-    .out-title{font-weight:700}
-    .out-sub{color:var(--muted); font-size:13px; margin-top:2px}
-
-    /* Proof bar */
-    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0 10px}
-    @media (max-width:700px){.stats{grid-template-columns:1fr 1fr}}
-    .stat{display:flex;align-items:baseline;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;
+    #benefits .lead{font-size:18px; color:var(--muted); margin:8px 0 18px}
+    /* Proof bar – roomy and centered */
+    .stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:6px 0 18px}
+    @media (max-width:760px){.stats{grid-template-columns:1fr 1fr}}
+    .stat{display:flex; align-items:baseline; gap:10px; padding:14px 16px; border:1px solid var(--line); border-radius:14px;
           background:linear-gradient(180deg,color-mix(in oklab,var(--panel) 92%,#000 8%),color-mix(in oklab,var(--panel) 86%,#000 14%))}
-    .num{font-size:26px;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-         -webkit-background-clip:text;background-clip:text;color:transparent}
-    .label{color:var(--muted);font-size:13px}
+    .num{font-size:30px; font-weight:800; line-height:1; background:linear-gradient(135deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .label{color:var(--muted); font-size:14px}
 
-    /* HOW WE WORK: animated pipeline */
-    .how-pipeline{position:relative; overflow:hidden; padding-top:6px}
-    .flowline{position:absolute;left:10px;right:10px;top:36px;height:2px;border-radius:2px;
-      background:linear-gradient(90deg,var(--line),var(--accent),var(--line));background-size:200% 100%;
-      animation:flow 8s linear infinite;opacity:.6}
-    @keyframes flow{100%{background-position:200% 0}}
+    /* Outcomes – fewer columns for air */
+    .outcomes{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px}
+    @media (max-width:760px){.outcomes{grid-template-columns:1fr}}
+    .outcome{display:grid; grid-template-columns:36px 1fr; gap:12px; align-items:center; padding:14px; border:1px solid var(--line); border-radius:14px;
+             background:linear-gradient(180deg,color-mix(in oklab,var(--panel) 92%, #000 8%), color-mix(in oklab,var(--panel) 86%, #000 14%));
+             transition:transform .15s ease, border-color .2s ease}
+    .outcome:hover{transform:translateY(-2px); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
+    .out-ico{font-size:22px}
+    .out-title{font-weight:800}
+    .out-sub{color:var(--muted); font-size:14px; margin-top:2px}
 
-    .steps{display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px}
-    @media (max-width:980px){.steps{grid-template-columns:1fr 1fr}}
-    @media (max-width:560px){.steps{grid-template-columns:1fr}}
-
-    .step{border:1px solid var(--line); border-radius:12px; padding:12px; background:rgba(255,255,255,.03); position:relative}
-    .step h4{margin:0 0 6px}
-    .node{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 0 3px rgba(32,178,255,.15),0 4px 12px rgba(0,0,0,.4)}
-    .mini-vis{position:relative; border:1px dashed color-mix(in oklab, var(--line) 80%, #fff 20%); border-radius:10px; padding:10px; min-height:88px; overflow:hidden;
+    /* ================= PROCESS (cleaner layout) ================= */
+    #process .card{
+      background:color-mix(in oklab,var(--panel) 90%, #000 10%);
+      border:1px solid color-mix(in oklab, var(--line) 78%, #fff 22%);
+      border-radius:var(--radius);
+      padding:clamp(20px,3vw,32px);
+      box-shadow:var(--shadow);
+    }
+    .steps{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    @media (max-width:860px){.steps{grid-template-columns:1fr}}
+    .step{border:1px solid var(--line); border-radius:14px; padding:14px; background:rgba(255,255,255,.03)}
+    .step h4{margin:0 0 8px}
+    .mini-vis{position:relative; border:1px dashed color-mix(in oklab, var(--line) 80%, #fff 20%); border-radius:12px; padding:12px; min-height:96px; overflow:hidden;
       background:rgba(255,255,255,.02)}
-    .note{color:var(--muted); font-size:12px; margin-top:8px}
+    .note{color:var(--muted); font-size:13px; margin-top:8px}
 
-    /* Step 1: Search bar with typing phrases */
+    /* elements reused inside process visuals */
     .search-bar{display:flex; align-items:center; gap:8px; padding:8px 10px; background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:999px}
-    .search-icon{opacity:.8}
     .search-text{white-space:nowrap; overflow:hidden}
     .caret-s{width:8px;height:16px;margin-left:2px;background:#8fd5ff;border-radius:2px;opacity:0}
     @keyframes blink{0%,49%{opacity:1} 50%,100%{opacity:0}}
     #caret-search.typing{animation:blink 1s steps(2, jump-none) infinite}
 
-    /* Step 2: Publish cards sliding in */
-    .pub-wrap{display:grid; grid-template-columns:1fr 1fr; gap:8px}
-    .pub-card{background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:8px; padding:8px; transform:translateY(16px); opacity:.0}
+    .pub-wrap{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    .pub-card{background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:10px; padding:10px; transform:translateY(16px); opacity:.0}
     .pub-card.show{transform:none; opacity:1; transition:all .5s cubic-bezier(.2,.65,.2,1)}
     .pub-badge{font-size:11px; color:var(--text); background:linear-gradient(135deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; border:1px solid color-mix(in oklab, var(--accent) 30%, #fff 70%); border-radius:999px; padding:2px 6px}
-
-    /* Step 3: Mini AI card */
-    .mini-ai{padding:8px; border:1px solid var(--line); border-radius:8px; background:rgba(255,255,255,.04); transform:translateY(10px); opacity:.0}
+    .mini-ai{padding:10px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.04); transform:translateY(10px); opacity:.0}
     .mini-ai.show{transform:none; opacity:1; transition:all .5s cubic-bezier(.2,.65,.2,1)}
     .mini-row{height:8px; border-radius:6px; background:rgba(255,255,255,.08); margin:6px 0; position:relative; overflow:hidden}
     .mini-row::after{content:""; position:absolute; inset:0; transform:translateX(-100%); background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent); animation:shimmer 2.2s infinite}
@@ -189,14 +183,14 @@
     .src{font-size:11px; color:var(--muted); border:1px solid var(--line); padding:3px 6px; border-radius:999px; background:rgba(255,255,255,.04)}
     .src.upjolt{border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
     .src.upjolt.glow{box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.8s ease-out 2}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(32,178,255,.45)}100%{box-shadow:0 0 0 22px rgba(32,178,255,0)}}
 
-    /* Step 4: Metrics bars growing */
     .bars{display:grid; gap:6px; margin-top:2px}
     .bar{height:10px; border-radius:8px; background:rgba(255,255,255,.06); position:relative; overflow:hidden}
     .bar > span{position:absolute; inset:0; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-2));}
     .bar.grow > span{transition:width .9s cubic-bezier(.2,.65,.2,1)}
 
-    /* SERVICES */
+    /* ================= SERVICES/RESULTS/CONTACT (unchanged styles trimmed) ================= */
     .services{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,2.2vw,22px)}
     @media (max-width:900px){.services{grid-template-columns:1fr 1fr}}
     @media (max-width:580px){.services{grid-template-columns:1fr}}
@@ -205,10 +199,6 @@
       box-shadow:var(--shadow); transition:transform .15s, border-color .2s, background .2s}
     .service-card:hover{transform:translateY(-4px); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
     .icon{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; margin-bottom:12px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#031322; box-shadow:inset 0 0 18px rgba(255,255,255,.2)}
-    .service-card h3{margin:10px 0 6px; font-size:18px}
-    .service-card p{margin:0; color:var(--muted); font-size:15px}
-
-    /* PORTFOLIO / RESULTS */
     .portfolio-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,2vw,18px)}
     @media (max-width:980px){.portfolio-grid{grid-template-columns:1fr 1fr}}
     @media (max-width:600px){.portfolio-grid{grid-template-columns:1fr}}
@@ -217,9 +207,7 @@
     .work .overlay{position:absolute; inset:auto 0 0 0; padding:12px 14px; background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));
       display:flex; align-items:flex-end; gap:8px; min-height:46%; color:#ecf3ff}
     .tag{display:inline-block; padding:4px 8px; font-size:12px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.25)}
-    .work h4{margin:6px 0 4px}
 
-    /* CONTACT */
     .contact-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(18px,3vw,28px)}
     @media (max-width:920px){.contact-grid{grid-template-columns:1fr}}
     form{display:grid; gap:12px}
@@ -232,10 +220,9 @@
     .list{display:grid; gap:10px; margin-top:8px}
     .list li{list-style:none; display:flex; align-items:center; gap:10px; color:var(--muted)}
 
-    /* FOOTER */
     footer{padding:28px 0; border-top:1px solid var(--line); color:var(--muted); text-align:center}
 
-    /* SCROLL ANIMS */
+    /* ============== SCROLL ANIMS ============== */
     [data-animate]{opacity:0; transform:translateY(14px)}
     [data-animate].in-view{opacity:1; transform:none; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.65,.2,1)}
     [data-animate="fade-up"]{transform:translateY(22px)}
@@ -267,7 +254,7 @@
         <button class="menu-btn" id="menuBtn" aria-controls="main-nav" aria-expanded="false">☰ Menu</button>
         <ul>
           <li><a href="#hero" class="nav-link active">Home</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#benefits" class="nav-link">About</a></li>
           <li><a href="#services" class="nav-link">Services</a></li>
           <li><a href="#portfolio" class="nav-link">Results</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -329,146 +316,146 @@
     </div>
   </section>
 
-  <!-- ================= ABOUT / WHY TEAMS CHOOSE ================= -->
-  <section id="about">
+  <!-- ================= BENEFITS (wide & airy) ================= -->
+  <section id="benefits">
     <div class="container">
       <div class="section-head">
         <h2 data-animate="fade-up">Why teams choose Upjolt</h2>
         <p data-animate="fade-left">Your buyers ask AI for solutions. We make sure you’re the answer — then we automate the follow-through.</p>
       </div>
 
-      <div class="about-grid">
-        <!-- LEFT: Simple message + outcomes + stats -->
-        <div class="card" data-animate="fade-right">
-          <h3>We make AI find you — then turn interest into action.</h3>
-          <p>
-            Plain and simple: we publish the right evidence every day on LinkedIn and your site, so assistants like ChatGPT trust and cite you.
-            When people discover you, automations reply, qualify, and book time — without manual chasing.
-          </p>
+      <div class="card" data-animate="fade-up">
+        <h3 style="margin:0">We make AI find you — then turn interest into action.</h3>
+        <p class="lead">
+          We publish the right evidence every day on LinkedIn and your site, so assistants like ChatGPT trust and cite you.
+          When people discover you, automations reply, qualify, and book time — without manual chasing.
+        </p>
 
-          <!-- Proof bar (animated stats) -->
-          <div class="stats" aria-label="Key metrics">
-            <div class="stat">
-              <span class="num" data-count="30" data-suffix="d">0</span>
-              <span class="label">to assistant mentions</span>
-            </div>
-            <div class="stat">
-              <span class="num" data-count="2" data-suffix="×">0</span>
-              <span class="label">reply rate</span>
-            </div>
-            <div class="stat">
-              <span class="num" data-count="70" data-suffix="%">0</span>
-              <span class="label">less triage time</span>
+        <!-- Proof bar (animated stats) -->
+        <div class="stats" aria-label="Key metrics">
+          <div class="stat">
+            <span class="num" data-count="30" data-suffix="d">0</span>
+            <span class="label">to assistant mentions</span>
+          </div>
+          <div class="stat">
+            <span class="num" data-count="2" data-suffix="×">0</span>
+            <span class="label">reply rate</span>
+          </div>
+          <div class="stat">
+            <span class="num" data-count="70" data-suffix="%">0</span>
+            <span class="label">less triage time</span>
+          </div>
+        </div>
+
+        <!-- Outcomes (spacious, 2 columns) -->
+        <div class="outcomes" aria-label="Outcomes we optimize for">
+          <div class="outcome" data-animate="pop">
+            <div class="out-ico">🔎</div>
+            <div><div class="out-title">Appear in AI answers</div><div class="out-sub">Be cited when buyers ask ChatGPT/Copilot.</div></div>
+          </div>
+          <div class="outcome" data-animate="pop" data-delay="80">
+            <div class="out-ico">⚡</div>
+            <div><div class="out-title">Faster time-to-reply</div><div class="out-sub">Auto-DMs, auto-emails, human handoff.</div></div>
+          </div>
+          <div class="outcome" data-animate="pop" data-delay="120">
+            <div class="out-ico">🧹</div>
+            <div><div class="out-title">Less manual triage</div><div class="out-sub">Qualify leads and candidates automatically.</div></div>
+          </div>
+          <div class="outcome" data-animate="pop" data-delay="160">
+            <div class="out-ico">🗣️</div>
+            <div><div class="out-title">Consistent voice</div><div class="out-sub">Templates + approvals keep tone aligned.</div></div>
+          </div>
+          <div class="outcome" data-animate="pop" data-delay="200">
+            <div class="out-ico">📊</div>
+            <div><div class="out-title">Trackable conversions</div><div class="out-sub">Every step has a measurable outcome.</div></div>
+          </div>
+          <div class="outcome" data-animate="pop" data-delay="240">
+            <div class="out-ico">🔒</div>
+            <div><div class="out-title">Own your data</div><div class="out-sub">Keep the content and the insights.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROCESS (separate, cleaner) ================= -->
+  <section id="process">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-animate="fade-up">How we work</h2>
+        <p data-animate="fade-left">A simple 4-step system — set up once, improves weekly.</p>
+      </div>
+
+      <div class="card" id="how-work" data-animate="fade-up">
+        <div class="steps">
+          <!-- Step 1 -->
+          <div class="step">
+            <h4>1) Your buyers are searching</h4>
+            <div class="mini-vis">
+              <div class="search-bar">
+                <span class="search-icon">🔎</span>
+                <span class="search-text" id="hw-query"></span>
+                <span class="caret-s" id="caret-search"></span>
+              </div>
+              <div class="note">We map the questions your buyers ask.</div>
             </div>
           </div>
 
-          <!-- Outcomes (clean visuals) -->
-          <div class="outcomes" aria-label="Outcomes we optimize for">
-            <div class="outcome" data-animate="pop">
-              <div class="out-ico">🔎</div>
-              <div><div class="out-title">Appear in AI answers</div><div class="out-sub">Be cited when buyers ask ChatGPT/Copilot.</div></div>
+          <!-- Step 2 -->
+          <div class="step">
+            <h4>2) We create & publish daily</h4>
+            <div class="mini-vis">
+              <div class="pub-wrap">
+                <div class="pub-card" id="pub-li">
+                  <span class="pub-badge">LinkedIn</span>
+                  <div class="mini-row"></div><div class="mini-row"></div>
+                </div>
+                <div class="pub-card" id="pub-web">
+                  <span class="pub-badge">Website</span>
+                  <div class="mini-row"></div><div class="mini-row"></div>
+                </div>
+              </div>
+              <div class="note">Short answers, evidence pages, and schema your AI assistants can trust.</div>
             </div>
-            <div class="outcome" data-animate="pop" data-delay="80">
-              <div class="out-ico">⚡</div>
-              <div><div class="out-title">Faster time-to-reply</div><div class="out-sub">Auto-DMs, auto-emails, human handoff.</div></div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step">
+            <h4>3) AI finds & recommends you</h4>
+            <div class="mini-vis">
+              <div class="mini-ai" id="mini-ai">
+                <div class="mini-row" style="width:85%"></div>
+                <div class="mini-row" style="width:70%"></div>
+                <div class="mini-row" style="width:55%"></div>
+                <div class="mini-srcs">
+                  <span class="src">industry report</span>
+                  <span class="src">schema docs</span>
+                  <span class="src upjolt" id="src-upjolt">upjolt.ai</span>
+                </div>
+              </div>
+              <div class="note">Assistants cite your content as a trusted source.</div>
             </div>
-            <div class="outcome" data-animate="pop" data-delay="120">
-              <div class="out-ico">🧹</div>
-              <div><div class="out-title">Less manual triage</div><div class="out-sub">Qualify leads and candidates automatically.</div></div>
-            </div>
-            <div class="outcome" data-animate="pop" data-delay="160">
-              <div class="out-ico">🗣️</div>
-              <div><div class="out-title">Consistent voice</div><div class="out-sub">Templates + approvals keep tone aligned.</div></div>
-            </div>
-            <div class="outcome" data-animate="pop" data-delay="200">
-              <div class="out-ico">📊</div>
-              <div><div class="out-title">Trackable conversions</div><div class="out-sub">Every step has a measurable outcome.</div></div>
-            </div>
-            <div class="outcome" data-animate="pop" data-delay="240">
-              <div class="out-ico">🔒</div>
-              <div><div class="out-title">Own your data</div><div class="out-sub">Keep the content and the insights.</div></div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step">
+            <h4>4) Measure, improve & report</h4>
+            <div class="mini-vis">
+              <div class="bars">
+                <div class="bar" data-val="78"><span></span></div>
+                <div class="bar" data-val="62"><span></span></div>
+                <div class="bar" data-val="90"><span></span></div>
+              </div>
+              <div class="note">Weekly insights: visibility, replies, bookings — and what to ship next.</div>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT: How we work (visual pipeline) -->
-        <div class="card how-pipeline" id="how-work" data-animate="fade-up">
-          <h3>How we work</h3>
-          <div class="flowline" aria-hidden="true"></div>
-          <div class="steps">
-            <!-- Step 1 -->
-            <div class="step">
-              <span class="node" aria-hidden="true"></span>
-              <h4>1) Your buyers are searching</h4>
-              <div class="mini-vis">
-                <div class="search-bar">
-                  <span class="search-icon">🔎</span>
-                  <span class="search-text" id="hw-query"></span>
-                  <span class="caret-s" id="caret-search"></span>
-                </div>
-                <div class="note">We map the questions your buyers ask.</div>
-              </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="step">
-              <span class="node" aria-hidden="true"></span>
-              <h4>2) We create & publish daily</h4>
-              <div class="mini-vis">
-                <div class="pub-wrap">
-                  <div class="pub-card" id="pub-li">
-                    <span class="pub-badge">LinkedIn</span>
-                    <div class="mini-row"></div><div class="mini-row"></div>
-                  </div>
-                  <div class="pub-card" id="pub-web">
-                    <span class="pub-badge">Website</span>
-                    <div class="mini-row"></div><div class="mini-row"></div>
-                  </div>
-                </div>
-                <div class="note">Short answers, evidence pages, and schema your AI assistants can trust.</div>
-              </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="step">
-              <span class="node" aria-hidden="true"></span>
-              <h4>3) AI finds & recommends you</h4>
-              <div class="mini-vis">
-                <div class="mini-ai" id="mini-ai">
-                  <div class="mini-row" style="width:85%"></div>
-                  <div class="mini-row" style="width:70%"></div>
-                  <div class="mini-row" style="width:55%"></div>
-                  <div class="mini-srcs">
-                    <span class="src">industry report</span>
-                    <span class="src">schema docs</span>
-                    <span class="src upjolt" id="src-upjolt">upjolt.ai</span>
-                  </div>
-                </div>
-                <div class="note">Assistants cite your content as a trusted source.</div>
-              </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="step">
-              <span class="node" aria-hidden="true"></span>
-              <h4>4) We measure, improve & report</h4>
-              <div class="mini-vis">
-                <div class="bars">
-                  <div class="bar" data-val="78"><span></span></div>
-                  <div class="bar" data-val="62"><span></span></div>
-                  <div class="bar" data-val="90"><span></span></div>
-                </div>
-                <div class="note">Weekly insights: visibility, replies, bookings — and what to ship next.</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Mini CTA -->
-          <div class="cta" style="margin-top:12px">
-            <a class="btn btn-primary btn-sm" href="#contact">Get a free plan</a>
-          </div>
+        <!-- Mini CTA -->
+        <div class="cta" style="margin-top:14px">
+          <a class="btn btn-primary btn-sm" href="#contact">Get a free plan</a>
         </div>
-      </div><!-- /about-grid -->
+      </div>
     </div>
   </section>
 
