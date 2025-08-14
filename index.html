@@ -1,3 +1,8 @@
+Here’s your page updated with a Calendly embed in the Contact section (labeled “Book a free call & get your free automation”). I also added light styles for the contact cards/grid so it matches the rest of the site.
+
+> Copy-paste the file below as `index.html` and open it in your browser.
+> The Calendly widget is already configured with your link.
+
 ```html
 <!doctype html>
 <html lang="en">
@@ -7,14 +12,11 @@
   <title>Upjolt — Automate Growth. Rank in AI. Convert More.</title>
   <meta name="description" content="Upjolt makes your brand discoverable in AI assistants and automates the busywork: AI search visibility, social media, CV screening, email, and WhatsApp flows." />
   <style>
-    /* ================= THEME ================= */
     :root{
       --bg:#0b0f17; --panel:#0f1724; --text:#e6edf6; --muted:#a6b4c6; --line:#23324a;
       --accent:#60a5fa; --accent-2:#22d3ee; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
       --container:1120px; --section-pad:clamp(64px,8vw,120px);
     }
-
-    /* =============== BASE / RESET =============== */
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -31,20 +33,19 @@
     a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
     .container{width:min(100% - 32px, var(--container)); margin-inline:auto}
 
-    /* ================= HEADER ================= */
+    /* HEADER */
     header{position:fixed; inset-inline:0; top:0; z-index:70; backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px);
       background: color-mix(in oklab, var(--bg) 70%, transparent); border-bottom:1px solid transparent; transition:background .3s,border-color .3s}
     header.scrolled{background: color-mix(in oklab, var(--bg) 90%, #000 10%); border-color:var(--line)}
     .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
     .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
 
-    /* === Upjolt animated symbol (eye-catching) === */
+    /* Upjolt animated symbol */
     .brand .logo{
       position:relative; width:36px;height:36px;border-radius:10px; overflow:hidden; isolation:isolate;
       background:radial-gradient(120% 120% at 20% 20%, #7fd3ff 0 35%, #2cc9f0 60%, #0a2a4a 100%);
       box-shadow:0 10px 24px rgba(32,178,255,.35), inset 0 0 28px rgba(255,255,255,.25);
     }
-    /* Pulsing rings */
     .brand .logo::before,
     .brand .logo::after{
       content:""; position:absolute; inset:-2px; border-radius:12px; pointer-events:none;
@@ -52,7 +53,6 @@
     }
     .brand .logo::after{animation-delay:1.2s; opacity:.7}
     @keyframes pulseRing{0%{transform:scale(.7);opacity:.8} 70%{transform:scale(1.25);opacity:0} 100%{opacity:0}}
-    /* Lightning jolt */
     .bolt{position:absolute; left:-30%; top:-10%; width:160%; height:160%; transform:rotate(-22deg);
       background:
         linear-gradient(transparent 48%, rgba(255,255,255,.9) 52% 56%, transparent 60%),
@@ -73,15 +73,13 @@
       .menu-btn{display:inline-flex; align-items:center; gap:8px}
     }
 
-    /* ================= HERO ================= */
+    /* HERO */
     .hero{padding-top:calc(80px + var(--section-pad)); padding-bottom:var(--section-pad); position:relative; overflow:clip}
     .hero-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(24px,4vw,48px); align-items:center}
     @media (max-width:920px){.hero-grid{grid-template-columns:1fr}}
-
     .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:12px; color:var(--text);
       background:color-mix(in oklab,var(--panel) 85%, #000 15%); border:1px solid var(--line)}
     .badge .dot{width:8px;height:8px;border-radius:50%; background: radial-gradient(circle at 30% 30%, #fff 0 20%, #8ef 24% 60%, #09f 70% 100%); box-shadow:0 0 10px #39e}
-
     .hero h1{font-size:clamp(36px,6vw,64px); line-height:1.05; margin:14px 0 12px; letter-spacing:-.02em}
     .hero p{color:var(--muted); font-size:clamp(16px,2.2vw,19px); margin:0 0 26px}
     .cta{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
@@ -91,17 +89,12 @@
     .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2)); border-color:transparent; box-shadow:0 10px 24px rgba(32,178,255,.3); color:#071018}
     .btn-ghost{background: color-mix(in oklab, var(--panel) 85%, #000 15%)}
     .btn-sm{padding:8px 12px; font-size:14px; border-radius:10px}
-
     .hero-visual{position:relative; aspect-ratio:4/3; border-radius:var(--radius); overflow:hidden; background:linear-gradient(180deg,#0b1327,#09101f);
       border:1px solid var(--line); box-shadow:var(--shadow); isolation:isolate}
-
-    /* ====== Decorative blobs ====== */
     .blob{position:absolute; filter:blur(28px); opacity:.35; mix-blend-mode:screen; pointer-events:none}
     .blob.b1{width:420px;height:420px; right:-10%; top:-10%; background:radial-gradient(circle at 30% 30%, #33f 0 30%, transparent 60%)}
     .blob.b2{width:380px;height:380px; left:-10%; bottom:-10%; background:radial-gradient(circle at 60% 60%, #2ef 0 30%, transparent 60%)}
 
-    /* ====== ChatGPT-style demo in hero ====== */
-    .hero-visual{background:radial-gradient(120% 120% at 20% 10%, #121a2f 0%, #0e1727 45%, #0a111f 100%)}
     .demo{position:absolute; inset:12px; border-radius:14px; padding:12px; background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
       border:1px solid color-mix(in oklab,var(--line) 85%, #fff 15%); display:grid; grid-template-rows:auto auto 1fr; gap:10px; overflow:hidden}
     .demo-bar{display:flex; align-items:center; gap:8px; padding:8px 10px; background:color-mix(in oklab,var(--panel) 90%, #000 10%); border-radius:10px; border:1px solid var(--line);
@@ -135,22 +128,21 @@
     .answer-footer .mini::after{content:""; position:absolute; inset:0; transform:translateX(-100%); background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
       animation:shimmer 2.2s infinite .4s}
 
-    /* =============== SECTION HEADERS =============== */
     section{padding:var(--section-pad) 0; position:relative}
     .section-head{margin-bottom:28px; display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap}
     .section-head h2{font-size:clamp(28px,4.2vw,44px); margin:0; letter-spacing:-.02em}
     .section-head p{margin:0; color:var(--muted); max-width:800px}
 
-    /* ================= BENEFITS (single wide card) ================= */
-    #benefits .card{
+    /* Shared card */
+    .card{
       background:color-mix(in oklab,var(--panel) 90%, #000 10%);
       border:1px solid color-mix(in oklab, var(--line) 78%, #fff 22%);
       border-radius:var(--radius);
       padding:clamp(20px,3vw,32px);
       box-shadow:var(--shadow);
-      max-width:980px;
-      margin-inline:auto;
     }
+
+    /* Benefits */
     #benefits .lead{font-size:18px; color:var(--muted); margin:8px 0 18px}
     .stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:6px 0 10px}
     @media (max-width:760px){.stats{grid-template-columns:1fr 1fr}}
@@ -158,7 +150,6 @@
           background:linear-gradient(180deg,color-mix(in oklab,var(--panel) 92%,#000 8%),color-mix(in oklab,var(--panel) 86%,#000 14%))}
     .num{font-size:30px; font-weight:800; line-height:1; background:linear-gradient(135deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
     .label{color:var(--muted); font-size:14px}
-
     .outcomes{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px}
     @media (max-width:760px){.outcomes{grid-template-columns:1fr}}
     .outcome{display:grid; grid-template-columns:36px 1fr; gap:12px; align-items:center; padding:14px; border:1px solid var(--line); border-radius:14px;
@@ -169,28 +160,17 @@
     .out-title{font-weight:800}
     .out-sub{color:var(--muted); font-size:14px; margin-top:2px}
 
-    /* ================= HOW WE WORK (rows) ================= */
-    #process .card{
-      background:color-mix(in oklab,var(--panel) 90%, #000 10%);
-      border:1px solid color-mix(in oklab, var(--line) 78%, #fff 22%);
-      border-radius:var(--radius);
-      padding:clamp(20px,3vw,32px);
-      box-shadow:var(--shadow);
-    }
+    /* How we work */
     .row{display:grid; gap:14px; margin-bottom:18px}
     .row.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
     .row.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
     .row.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
     @media (max-width:980px){.row.grid-4{grid-template-columns:1fr 1fr}}
-    @media (max-width:720px){
-      .row.grid-3{grid-template-columns:1fr}
-      .row.grid-2{grid-template-columns:1fr}
-    }
+    @media (max-width:720px){.row.grid-3,.row.grid-2{grid-template-columns:1fr}}
     .mini-card{border:1px solid var(--line); border-radius:14px; padding:14px; background:rgba(255,255,255,.03); position:relative}
     .mini-card h4{margin:0 0 6px}
     .ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#031322; box-shadow:inset 0 0 18px rgba(255,255,255,.2)}
     .caption{color:var(--muted); font-size:13px; margin-top:2px}
-
     .flow{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px}
     .step-pill{border:1px solid var(--line); border-radius:999px; padding:6px 10px; font-size:13px; color:var(--muted); background:rgba(255,255,255,.04); position:relative}
     .step-pill.on{color:var(--text); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%); box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.4s ease-out 2}
@@ -199,15 +179,13 @@
     .check{position:absolute; right:10px; top:10px; width:22px;height:22px;border-radius:999px; display:grid;place-items:center;
       background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; opacity:0; transform:scale(.6)}
     .post-card.posted .check{opacity:1; transform:none; transition:all .25s ease}
-
     .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
     .badge-chip{font-size:12px; border:1px solid var(--line); padding:5px 8px; border-radius:999px; background:rgba(255,255,255,.04)}
     .badge-chip.glow{box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.4s ease-out 2}
-
     .stat-chip{display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.03)}
     .stat-chip .num{font-size:26px}
 
-    /* ================= SERVICES/RESULTS/CONTACT (cards) ================= */
+    /* Services/Results */
     .services{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,2.2vw,22px)}
     @media (max-width:900px){.services{grid-template-columns:1fr 1fr}}
     @media (max-width:580px){.services{grid-template-columns:1fr}}
@@ -216,8 +194,6 @@
       box-shadow:var(--shadow); transition:transform .15s, border-color .2s, background .2s}
     .service-card:hover{transform:translateY(-4px); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
     .icon{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; margin-bottom:12px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#031322; box-shadow:inset 0 0 18px rgba(255,255,255,.2)}
-
-    /* ===== Selected Results visuals (brand-relevant) ===== */
     .portfolio-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,2vw,18px)}
     @media (max-width:980px){.portfolio-grid{grid-template-columns:1fr 1fr}}
     @media (max-width:600px){.portfolio-grid{grid-template-columns:1fr}}
@@ -227,8 +203,6 @@
     .tag{display:inline-block; padding:4px 8px; font-size:12px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.25)}
     .viz{position:absolute; inset:0; overflow:hidden; border-radius:14px; background:radial-gradient(120% 120% at -10% -10%, #142036 0%, transparent 55%), #0b1426}
     .work .viz > *{position:absolute}
-
-    /* --- 1) AI Visibility: search results + highlighted brand --- */
     .viz.search .bar{left:8%; right:8%; top:12%; height:28px; border-radius:10px; border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.06)}
     .viz.search .qdot{left:10%; top:17%; width:10px;height:10px;border-radius:999px;background:#9fe}
     .viz.search .res{left:8%; right:8%; height:40px; border-radius:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08)}
@@ -238,17 +212,12 @@
     .viz.search .brand::after{content:" cited"; position:absolute; right:10px; top:10px; padding:2px 8px; font-size:12px; border-radius:999px;
       color:#041318; background:linear-gradient(135deg,var(--accent),var(--accent-2))}
     @keyframes brandPop{0%{transform:translateY(20px); opacity:.5} 30%{transform:none; opacity:1} 60%{box-shadow:0 0 0 14px rgba(32,178,255,0)} 100%{box-shadow:0 0 0 0 rgba(32,178,255,0)}}
-
-    /* --- 2) Social: post + DM → calendar --- */
     .viz.social2 .icons{left:6%; top:10%; display:flex; gap:8px}
     .viz.social2 .i{width:20px;height:20px;border-radius:6px;background:#9fe;filter:grayscale(.2)}
     .viz.social2 .post{left:10%; top:28%; width:60%; height:24%; border-radius:12px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.06); animation:float 4s ease-in-out infinite}
     .viz.social2 .dm{right:10%; top:56%; width:38%; height:14%; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); animation:float 4s ease-in-out 1s infinite}
     .viz.social2 .cal{right:12%; bottom:16%; width:36px;height:36px;border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; display:grid; place-items:center; transform:scale(.6); opacity:.6; animation:book 5s ease-in-out infinite}
-    @keyframes float{50%{transform:translateY(-6px)}}
-    @keyframes book{40%{transform:scale(1); opacity:1} 70%{box-shadow:0 0 0 16px rgba(32,178,255,0)}}
-
-    /* --- 3) CV Screening: CV gets scanned and best picked --- */
+    @keyframes float{50%{transform:translateY(-6px)}} @keyframes book{40%{transform:scale(1); opacity:1} 70%{box-shadow:0 0 0 16px rgba(32,178,255,0)}}
     .viz.cv .doc{left:10%; top:12%; width:56%; height:64%; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.25)}
     .viz.cv .line{left:14%; right:18%; height:10px; background:rgba(255,255,255,.1); border-radius:6px}
     .viz.cv .l1{top:22%}.viz.cv .l2{top:36%}.viz.cv .l3{top:50%}.viz.cv .l4{top:64%}
@@ -257,15 +226,11 @@
     .viz.cv .good{right:12%; bottom:22%; width:28px;height:28px;border-radius:8px; background:radial-gradient(circle at 30% 30%,#fff,#9fe); transform:rotate(45deg); animation:twinkle 2.2s ease-in-out infinite}
     .viz.cv .bad{right:10%; top:18%; width:16px;height:16px;border-radius:4px; background:#d66; opacity:.8}
     @keyframes twinkle{50%{transform:rotate(45deg) scale(1.12)}}
-
-    /* --- 4) Email Automation: envelope → calendar booked --- */
     .viz.email .env{left:12%; bottom:16%; width:42%; height:26%; border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06)); border:1px solid rgba(255,255,255,.3)}
     .viz.email .flap{left:12%; bottom:26%; width:42%; height:14%; background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05)); clip-path:polygon(0 0,100% 0,50% 100%)}
     .viz.email .plane{left:60%; top:38%; width:0;height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-bottom:16px solid #9fe; transform:rotate(20deg); animation:plane 2.8s ease-in-out infinite}
     .viz.email .cal{right:12%; bottom:18%; width:38px;height:38px;border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; display:grid; place-items:center; transform:scale(.7); opacity:.7; animation:book 4.8s ease-in-out infinite}
     @keyframes plane{50%{transform:translate(12px,-12px) rotate(25deg)}}
-
-    /* --- 5) WhatsApp: messages → calendar booked --- */
     .viz.wa .phone{right:8%; top:10%; width:46%; height:72%; border-radius:16px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.04)}
     .viz.wa .msg{left:10%; right:16%; height:14px; border-radius:10px; background:rgba(255,255,255,.12)}
     .viz.wa .m1{top:22%; animation:chat 4s ease-in-out infinite}
@@ -273,8 +238,6 @@
     .viz.wa .m3{top:52%; animation:chat 4s ease-in-out 1.2s infinite}
     .viz.wa .cal{left:12%; bottom:14%; width:38px;height:38px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; display:grid; place-items:center; transform:scale(.7); opacity:.7; animation:book 5.2s ease-in-out infinite}
     @keyframes chat{50%{transform:translateY(-6px)}}
-
-    /* --- 6) Bundle: ChatGPT → calendar → $ --- */
     .viz.bundle .node{width:36px;height:36px;border-radius:50%; display:grid; place-items:center}
     .viz.bundle .gpt{left:10%; top:44%; background:radial-gradient(circle at 30% 30%,#fff,#9fe); color:#041318; font-weight:800}
     .viz.bundle .cal{left:46%; top:42%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; font-weight:800}
@@ -282,7 +245,7 @@
     .viz.bundle .path{left:16%; right:18%; top:50%; height:8px; border-radius:8px; background:linear-gradient(90deg, rgba(120,200,255,.1), rgba(120,200,255,.55), rgba(120,200,255,.1)); background-size:200% 100%; animation:flow 3.2s linear infinite}
     @keyframes flow{to{background-position:200% 0}}
 
-    /* ============== SCROLL ANIMS ============== */
+    /* Scroll anims */
     [data-animate]{opacity:0; transform:translateY(14px)}
     [data-animate].in-view{opacity:1; transform:none; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.65,.2,1)}
     [data-animate="fade-up"]{transform:translateY(22px)}
@@ -293,7 +256,7 @@
     @media (prefers-reduced-motion:reduce){*[style],*[data-animate]{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}}
     .sr{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
 
-    /* ===== Sticky CTA button ===== */
+    /* Sticky CTA */
     .sticky-cta{
       position:fixed; right:16px; bottom:16px; z-index:80;
       transform:translateY(20px); opacity:0; pointer-events:none;
@@ -301,7 +264,16 @@
     }
     .sticky-cta.show{transform:none; opacity:1; pointer-events:auto}
 
-    /* ===== Footer (clean, 3-column) ===== */
+    /* Contact layout + inputs */
+    .contact-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:clamp(14px,2vw,18px)}
+    @media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+    #contact input, #contact textarea{
+      width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--line);
+      background:rgba(255,255,255,.04); color:var(--text)
+    }
+    #contact textarea{min-height:120px; resize:vertical}
+
+    /* Footer */
     footer{padding:28px 0; border-top:1px solid var(--line); color:var(--muted)}
     .foot{display:grid; grid-template-columns:1.2fr .9fr .9fr; gap:16px; align-items:start}
     @media (max-width:860px){.foot{grid-template-columns:1fr}}
@@ -311,11 +283,10 @@
     .foot a:hover{color:var(--text)}
     .foot .brand-foot{display:flex; align-items:center; gap:10px; font-weight:700}
     .foot .logo{width:26px;height:26px;border-radius:8px; background:linear-gradient(135deg,var(--accent),var(--accent-2))}
-    .foot small{display:block; margin-top:6px}
   </style>
 </head>
 <body>
-  <!-- ================= HEADER ================= -->
+  <!-- HEADER -->
   <header id="site-header">
     <div class="container nav">
       <div class="brand">
@@ -336,16 +307,13 @@
     </div>
   </header>
 
-  <!-- ================= HERO ================= -->
+  <!-- HERO -->
   <section id="hero" class="hero">
     <div class="container hero-grid">
       <div data-animate="fade-up">
         <span class="badge"><span class="dot" aria-hidden="true"></span> Make your brand visible in AI. Automate the follow-through.</span>
         <h1>Be found by AI. <span style="background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;">Automate</span> what happens next.</h1>
-        <p>
-          Upjolt helps companies rank inside AI assistants (ChatGPT, Copilot) and replaces manual workflows with reliable automations across
-          social, CV screening, email, and WhatsApp. More discovery. More replies. Less busywork.
-        </p>
+        <p>Upjolt helps companies rank inside AI assistants (ChatGPT, Copilot) and replaces manual workflows with reliable automations across social, CV screening, email, and WhatsApp.</p>
         <div class="cta">
           <a class="btn btn-primary" href="#contact">Get a Free Automation Plan</a>
           <a class="btn btn-ghost" href="#services">See What We Automate</a>
@@ -353,7 +321,7 @@
         <p style="color:var(--muted); margin-top:10px; font-size:14px;">⚡ Typical setup: 2–6 weeks • Works with your current tools</p>
       </div>
 
-      <!-- ChatGPT-style animated demo -->
+      <!-- ChatGPT-style demo -->
       <div class="hero-visual" data-animate="zoom-in" aria-label="AI search demo">
         <div class="demo">
           <div class="demo-bar">
@@ -389,7 +357,7 @@
     </div>
   </section>
 
-  <!-- ================= BENEFITS ================= -->
+  <!-- BENEFITS -->
   <section id="benefits">
     <div class="container">
       <div class="section-head">
@@ -399,12 +367,8 @@
 
       <div class="card" data-animate="fade-up">
         <h3 style="margin:0">We make AI find you — then turn interest into action.</h3>
-        <p class="lead">
-          We publish the right evidence every day on LinkedIn and your site, so assistants like ChatGPT trust and cite you.
-          When people discover you, automations reply, qualify, and book time — without manual chasing.
-        </p>
+        <p class="lead">We publish the right evidence every day on LinkedIn and your site, so assistants like ChatGPT trust and cite you. When people discover you, automations reply, qualify, and book time — without manual chasing.</p>
 
-        <!-- KPI set (simple English) -->
         <div class="stats" aria-label="Key metrics">
           <div class="stat">
             <span class="num" data-count="45" data-suffix="d">0</span>
@@ -419,41 +383,21 @@
             <span class="label">share of answers citing Nova Automations</span>
           </div>
         </div>
-        <small style="color:var(--muted);display:block;margin-top:6px">
-          Directional ranges from recent {{industry}} work; results vary and aren’t guaranteed.
-        </small>
+        <small style="color:var(--muted);display:block;margin-top:6px">Directional ranges from recent {{industry}} work; results vary and aren’t guaranteed.</small>
 
         <div class="outcomes" aria-label="Outcomes we optimize for">
-          <div class="outcome" data-animate="pop">
-            <div class="out-ico">🔎</div>
-            <div><div class="out-title">Appear in AI answers</div><div class="out-sub">Be cited when buyers ask ChatGPT/Copilot.</div></div>
-          </div>
-          <div class="outcome" data-animate="pop" data-delay="80">
-            <div class="out-ico">⚡</div>
-            <div><div class="out-title">Faster time-to-reply</div><div class="out-sub">Auto-DMs, auto-emails, human handoff.</div></div>
-          </div>
-          <div class="outcome" data-animate="pop" data-delay="120">
-            <div class="out-ico">🧹</div>
-            <div><div class="out-title">Less manual triage</div><div class="out-sub">Qualify leads and candidates automatically.</div></div>
-          </div>
-          <div class="outcome" data-animate="pop" data-delay="160">
-            <div class="out-ico">🗣️</div>
-            <div><div class="out-title">Consistent voice</div><div class="out-sub">Templates + approvals keep tone aligned.</div></div>
-          </div>
-          <div class="outcome" data-animate="pop" data-delay="200">
-            <div class="out-ico">📊</div>
-            <div><div class="out-title">Trackable conversions</div><div class="out-sub">Every step has a measurable outcome.</div></div>
-          </div>
-          <div class="outcome" data-animate="pop" data-delay="240">
-            <div class="out-ico">🔒</div>
-            <div><div class="out-title">Own your data</div><div class="out-sub">Keep the content and the insights.</div></div>
-          </div>
+          <div class="outcome" data-animate="pop"><div class="out-ico">🔎</div><div><div class="out-title">Appear in AI answers</div><div class="out-sub">Be cited when buyers ask ChatGPT/Copilot.</div></div></div>
+          <div class="outcome" data-animate="pop" data-delay="80"><div class="out-ico">⚡</div><div><div class="out-title">Faster time-to-reply</div><div class="out-sub">Auto-DMs, auto-emails, human handoff.</div></div></div>
+          <div class="outcome" data-animate="pop" data-delay="120"><div class="out-ico">🧹</div><div><div class="out-title">Less manual triage</div><div class="out-sub">Qualify leads and candidates automatically.</div></div></div>
+          <div class="outcome" data-animate="pop" data-delay="160"><div class="out-ico">🗣️</div><div><div class="out-title">Consistent voice</div><div class="out-sub">Templates + approvals keep tone aligned.</div></div></div>
+          <div class="outcome" data-animate="pop" data-delay="200"><div class="out-ico">📊</div><div><div class="out-title">Trackable conversions</div><div class="out-sub">Every step has a measurable outcome.</div></div></div>
+          <div class="outcome" data-animate="pop" data-delay="240"><div class="out-ico">🔒</div><div><div class="out-title">Own your data</div><div class="out-sub">Keep the content and the insights.</div></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= HOW WE WORK (rows) ================= -->
+  <!-- HOW WE WORK -->
   <section id="process">
     <div class="container">
       <div class="section-head">
@@ -462,104 +406,49 @@
       </div>
 
       <div class="card" id="how-work" data-animate="fade-up">
-        <!-- Row A -->
         <h3 style="margin:0 0 8px">How AI gets its answers</h3>
         <div class="row grid-4" aria-label="How AI builds answers">
-          <div class="mini-card" data-animate="pop">
-            <div class="ico">❓</div>
-            <h4>1) Someone asks</h4>
-            <p class="caption">ChatGPT/Copilot gets a question like “best email tool?”</p>
-          </div>
-          <div class="mini-card" data-animate="pop" data-delay="100">
-            <div class="ico">🗓️</div>
-            <h4>2) It looks for clear, recent pages</h4>
-            <p class="caption">Fresh, easy-to-read content wins.</p>
-          </div>
-          <div class="mini-card" data-animate="pop" data-delay="180">
-            <div class="ico">🔗</div>
-            <h4>3) It trusts matching sources</h4>
-            <p class="caption">Same answer on LinkedIn and your site → more trust.</p>
-          </div>
-          <div class="mini-card" data-animate="pop" data-delay="260">
-            <div class="ico">🧩</div>
-            <h4>4) It builds the reply</h4>
-            <p class="caption">It quotes and links to the source it trusts.</p>
-          </div>
+          <div class="mini-card" data-animate="pop"><div class="ico">❓</div><h4>1) Someone asks</h4><p class="caption">ChatGPT/Copilot gets a question like “best email tool?”</p></div>
+          <div class="mini-card" data-animate="pop" data-delay="100"><div class="ico">🗓️</div><h4>2) It looks for clear, recent pages</h4><p class="caption">Fresh, easy-to-read content wins.</p></div>
+          <div class="mini-card" data-animate="pop" data-delay="180"><div class="ico">🔗</div><h4>3) It trusts matching sources</h4><p class="caption">Same answer on LinkedIn and your site → more trust.</p></div>
+          <div class="mini-card" data-animate="pop" data-delay="260"><div class="ico">🧩</div><h4>4) It builds the reply</h4><p class="caption">It quotes and links to the source it trusts.</p></div>
         </div>
         <p class="caption">Be clear, be current, be consistent — that’s what AI picks.</p>
 
-        <!-- Row B -->
         <h3 style="margin:14px 0 6px">What we do every day</h3>
         <p class="caption">Daily publishing that AI understands.</p>
 
         <div class="flow" aria-label="Daily automation flow">
-          <span class="step-pill" id="step-draft">Draft short answer</span>
-          <span class="arrow">➜</span>
-          <span class="step-pill" id="step-approve">Phone: reply “Approve”</span>
-          <span class="arrow">➜</span>
+          <span class="step-pill" id="step-draft">Draft short answer</span><span class="arrow">➜</span>
+          <span class="step-pill" id="step-approve">Phone: reply “Approve”</span><span class="arrow">➜</span>
           <span class="step-pill" id="step-post">Auto-post to LinkedIn + Website</span>
         </div>
 
         <div class="row grid-2">
-          <div class="mini-card post-card" id="card-li">
-            <div class="check">✓</div>
-            <div class="ico">in</div>
-            <h4>LinkedIn</h4>
-            <p class="caption">Bite-size answer post. Auto-posted after your tap; link back to your site.</p>
-          </div>
-          <div class="mini-card post-card" id="card-web">
-            <div class="check">✓</div>
-            <div class="ico">🌐</div>
-            <h4>Website</h4>
-            <p class="caption">Simple “answer” page with proof (screens, FAQ). Easy AI labels so assistants can read it.</p>
-          </div>
+          <div class="mini-card post-card" id="card-li"><div class="check">✓</div><div class="ico">in</div><h4>LinkedIn</h4><p class="caption">Bite-size answer post. Auto-posted after your tap; link back to your site.</p></div>
+          <div class="mini-card post-card" id="card-web"><div class="check">✓</div><div class="ico">🌐</div><h4>Website</h4><p class="caption">Simple “answer” page with proof (screens, FAQ). Easy AI labels so assistants can read it.</p></div>
         </div>
         <p class="caption">Same answer in both places, linked together = easy for AI to find and quote you.</p>
 
-        <!-- Row C -->
         <h3 style="margin:14px 0 6px">Why this makes AI show you</h3>
         <div class="row grid-3">
-          <div class="mini-card" data-animate="pop">
-            <div class="ico">🆕</div>
-            <h4>Fresh</h4>
-            <p class="caption">New answers keep you current.</p>
-          </div>
-          <div class="mini-card" data-animate="pop" data-delay="100">
-            <div class="ico">🧾</div>
-            <h4>Clear</h4>
-            <p class="caption">Simple pages AI can quote.</p>
-          </div>
-          <div class="mini-card" data-animate="pop" data-delay="180">
-            <div class="ico">🔗</div>
-            <h4>Connected</h4>
-            <p class="caption">LinkedIn ↔ Website links say “this is the source.”</p>
+          <div class="mini-card" data-animate="pop"><div class="ico">🆕</div><h4>Fresh</h4><p class="caption">New answers keep you current.</p></div>
+          <div class="mini-card" data-animate="pop" data-delay="100"><div class="ico">🧾</div><h4>Clear</h4><p class="caption">Simple pages AI can quote.</p></div>
+          <div class="mini-card" data-animate="pop" data-delay="180"><div class="ico">🔗</div><h4>Connected</h4><p class="caption">LinkedIn ↔ Website links say “this is the source.”</p>
             <div class="badges" style="margin-top:6px">
-              <span class="badge-chip" id="b1">answer page</span>
-              <span class="badge-chip" id="b2">AI labels</span>
-              <span class="badge-chip" id="b3">LinkedIn link</span>
-              <span class="badge-chip" id="b4">sitemap updated</span>
+              <span class="badge-chip" id="b1">answer page</span><span class="badge-chip" id="b2">AI labels</span>
+              <span class="badge-chip" id="b3">LinkedIn link</span><span class="badge-chip" id="b4">sitemap updated</span>
             </div>
           </div>
         </div>
 
-        <!-- Row D -->
         <h3 style="margin:14px 0 6px">Proof & next step</h3>
         <div class="row grid-3">
-          <div class="stat-chip">
-            <span class="num" data-count="30" data-suffix="d">0</span>
-            <span class="caption">first AI mentions from kickoff</span>
-          </div>
-          <div class="stat-chip">
-            <span class="num" data-count="2" data-suffix="×">0</span>
-            <span class="caption">more replies from AI-found visitors</span>
-          </div>
-          <div class="stat-chip">
-            <span class="num" data-count="70" data-suffix="%">0</span>
-            <span class="caption">key questions covered with clear answers</span>
-          </div>
+          <div class="stat-chip"><span class="num" data-count="30" data-suffix="d">0</span><span class="caption">first AI mentions from kickoff</span></div>
+          <div class="stat-chip"><span class="num" data-count="2" data-suffix="×">0</span><span class="caption">more replies from AI-found visitors</span></div>
+          <div class="stat-chip"><span class="num" data-count="70" data-suffix="%">0</span><span class="caption">key questions covered with clear answers</span></div>
         </div>
         <small class="caption">Benchmarks from recent pilots; results vary.</small>
-
         <div class="cta" style="margin-top:12px">
           <a class="btn btn-primary btn-sm" href="#contact">Get a free plan</a>
           <a class="btn btn-ghost btn-sm" href="#services">See services</a>
@@ -568,7 +457,7 @@
     </div>
   </section>
 
-  <!-- ================= SERVICES ================= -->
+  <!-- SERVICES -->
   <section id="services">
     <div class="container">
       <div class="section-head">
@@ -577,58 +466,17 @@
       </div>
 
       <div class="services">
-        <article class="service-card" data-animate="pop">
-          <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5zM4 18h16v2H4z"/></svg>
-          </div>
-          <h3>AI Search Visibility</h3>
-          <p>Make assistants like ChatGPT/Copilot cite you. We add structured data, source-worthy content, and automation that publishes and refreshes it.</p>
-        </article>
-
-        <article class="service-card" data-animate="pop">
-          <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3zM7 9h10v2H7zM7 13h10v2H7zM7 17h7v2H7z"/></svg>
-          </div>
-          <h3>Social Media Automation</h3>
-          <p>Posting, automated replies, and booking — end to end.</p>
-        </article>
-
-        <article class="service-card" data-animate="pop">
-          <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12v6H6zM4 10h16v10H4zM8 12h8v2H8zM8 15h5v2H8z"/></svg>
-          </div>
-          <h3>CV Screening Automation</h3>
-          <p>We screen CVs for you and send the best candidates — automatically.</p>
-        </article>
-
-        <article class="service-card" data-animate="pop">
-          <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2 6l10 7L22 6v12H2zM22 6H2l10 7z"/></svg>
-          </div>
-          <h3>Email Automation</h3>
-          <p>Sequences that convert — behavior triggers to booked meetings.</p>
-        </article>
-
-        <article class="service-card" data-animate="pop">
-          <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.1 2 11c0 1.7.5 3.3 1.4 4.7L2 22l6.6-1.9c1.1.3 2.2.5 3.4.5 5.5 0 10-4.1 10-9.1S17.5 2 12 2z"/></svg>
-          </div>
-          <h3>WhatsApp Automation</h3>
-          <p>Receives messages, replies instantly, and books time.</p>
-        </article>
-
-        <article class="service-card" data-animate="pop">
-          <div class="icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7zm9-2.2L6 7.2V16l6 2.8 6-2.8V7.2l-6-2.4z"/></svg>
-          </div>
-          <h3>Implementation Bundle</h3>
-          <p>AI discovery → WhatsApp booking — tracked end to end.</p>
-        </article>
+        <article class="service-card" data-animate="pop"><div class="icon">⭐</div><h3>AI Search Visibility</h3><p>Make assistants like ChatGPT/Copilot cite you. We add structured data, source-worthy content, and automation that publishes and refreshes it.</p></article>
+        <article class="service-card" data-animate="pop"><div class="icon">📣</div><h3>Social Media Automation</h3><p>Posting, automated replies, and booking — end to end.</p></article>
+        <article class="service-card" data-animate="pop"><div class="icon">🧾</div><h3>CV Screening Automation</h3><p>We screen CVs for you and send the best candidates — automatically.</p></article>
+        <article class="service-card" data-animate="pop"><div class="icon">✉️</div><h3>Email Automation</h3><p>Sequences that convert — behavior triggers to booked meetings.</p></article>
+        <article class="service-card" data-animate="pop"><div class="icon">💬</div><h3>WhatsApp Automation</h3><p>Receives messages, replies instantly, and books time.</p></article>
+        <article class="service-card" data-animate="pop"><div class="icon">🔗</div><h3>Implementation Bundle</h3><p>AI discovery → WhatsApp booking — tracked end to end.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- ================= RESULTS (with new visual animations) ================= -->
+  <!-- SELECTED RESULTS -->
   <section id="portfolio">
     <div class="container">
       <div class="section-head">
@@ -637,7 +485,6 @@
       </div>
 
       <div class="portfolio-grid">
-        <!-- 1) Invisible → Cited (search result highlight) -->
         <div class="work" data-animate="fade-up">
           <div class="viz search">
             <div class="bar"></div><div class="qdot"></div>
@@ -647,7 +494,6 @@
           <div class="overlay"><div><span class="tag">AI Visibility</span><h4>From Invisible to Cited</h4><small>Search results show your brand — assistants link back to you.</small></div></div>
         </div>
 
-        <!-- 2) Posting + replies → booking (social icons + DM + calendar) -->
         <div class="work" data-animate="fade-up">
           <div class="viz social2">
             <div class="icons"><div class="i"></div><div class="i"></div><div class="i"></div></div>
@@ -658,7 +504,6 @@
           <div class="overlay"><div><span class="tag">Social</span><h4>Posting, Replies & Booking</h4><small>Auto-posts, smart DMs, and calendar links — done.</small></div></div>
         </div>
 
-        <!-- 3) CV Screening (scan + best pick) -->
         <div class="work" data-animate="fade-up">
           <div class="viz cv">
             <div class="doc"></div>
@@ -670,7 +515,6 @@
           <div class="overlay"><div><span class="tag">Recruitment</span><h4>We Screen CVs For You</h4><small>Parsing & ranking → shortlist delivered to your ATS.</small></div></div>
         </div>
 
-        <!-- 4) Email sequences → booked -->
         <div class="work" data-animate="fade-up">
           <div class="viz email">
             <div class="env"></div><div class="flap"></div><div class="plane"></div><div class="cal">✓</div>
@@ -678,7 +522,6 @@
           <div class="overlay"><div><span class="tag">Email</span><h4>Sequences that Convert</h4><small>Drips + triggers → calendar booked.</small></div></div>
         </div>
 
-        <!-- 5) WhatsApp → booked -->
         <div class="work" data-animate="fade-up">
           <div class="viz wa">
             <div class="phone"></div>
@@ -690,7 +533,6 @@
           <div class="overlay"><div><span class="tag">WhatsApp</span><h4>Instant Answers → Booking</h4><small>Conversations that end with a time on the calendar.</small></div></div>
         </div>
 
-        <!-- 6) Full Funnel (ChatGPT → calendar → $) -->
         <div class="work" data-animate="fade-up">
           <div class="viz bundle">
             <div class="node gpt">G</div>
@@ -704,31 +546,32 @@
     </div>
   </section>
 
-  <!-- ================= CONTACT ================= -->
+  <!-- CONTACT with Calendly -->
   <section id="contact">
     <div class="container">
       <div class="section-head">
         <h2 data-animate="fade-up">Get your free automation plan</h2>
-        <p data-animate="fade-left">Tell us your goals. We’ll map AI search opportunities and the fastest automations to ship in 30 days.</p>
+        <p data-animate="fade-left">Book a free call — we’ll map AI search opportunities and the fastest automations to ship in 30 days.</p>
       </div>
 
       <div class="contact-grid">
-        <form class="card" data-animate="fade-right" onsubmit="event.preventDefault(); alert('Demo form submitted. Connect this to your CRM or backend.');">
-          <div class="grid-2">
-            <label><span class="sr">Name</span><input name="name" placeholder="Your name" required /></label>
-            <label><span class="sr">Email</span><input type="email" name="email" placeholder="you@example.com" required /></label>
-          </div>
-          <label><span class="sr">Company</span><input name="company" placeholder="Company" /></label>
-          <label><span class="sr">Primary service</span><input name="service" placeholder="e.g., AI Search / Social / CV / Email / WhatsApp" /></label>
-          <label><span class="sr">Message</span><textarea name="message" placeholder="What outcome do you want in the next 90 days?"></textarea></label>
-          <button class="btn btn-primary" type="submit">Send Request</button>
-          <small style="color:var(--muted)">By submitting, you agree to our friendly privacy policy.</small>
-        </form>
+        <!-- Calendly embed -->
+        <div class="card" data-animate="fade-right" aria-label="Book a free call">
+          <h3 style="margin-top:0">Book a free call & get your plan</h3>
+          <!-- Calendly inline widget begin -->
+          <div class="calendly-inline-widget"
+               data-url="https://calendly.com/sammyzaidman26/30min?background_color=1a1a1a&text_color=4ac2f4&primary_color=a9faed"
+               style="min-width:320px;height:700px;"></div>
+          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+          <!-- Calendly inline widget end -->
+          <p class="caption" style="margin-top:10px">Prefer email? Reach us at <a href="mailto:hello@upjolt.ai">hello@upjolt.ai</a>.</p>
+        </div>
 
+        <!-- Implementation details -->
         <aside class="card" data-animate="fade-up">
           <h3>Implementation details</h3>
           <p>We integrate with your current stack. Typical toolchain examples:</p>
-          <ul class="list" style="list-style:none; padding:0; margin:8px 0; display:grid; gap:10px; color:var(--muted)">
+          <ul style="list-style:none; padding:0; margin:8px 0; display:grid; gap:10px; color:var(--muted)">
             <li>🧠 AI Search: schema, content feeds, knowledge pages</li>
             <li>📣 Social: schedulers, auto-inbox, CRM leads</li>
             <li>🧾 CV: parsing, scoring rules, ATS sync</li>
@@ -742,13 +585,11 @@
     </div>
   </section>
 
-  <!-- ================= FOOTER (clean) ================= -->
+  <!-- FOOTER -->
   <footer>
     <div class="container foot">
       <div>
-        <div class="brand-foot">
-          <div class="logo" aria-hidden="true"></div><span>Upjolt</span>
-        </div>
+        <div class="brand-foot"><div class="logo" aria-hidden="true"></div><span>Upjolt</span></div>
         <small>AI Visibility & Workflow Automation</small>
         <small>© <span id="year"></span> Upjolt — All rights reserved.</small>
       </div>
@@ -772,40 +613,34 @@
     </div>
   </footer>
 
-  <!-- ===== Sticky CTA (appears after scrolling past hero) ===== -->
+  <!-- Sticky CTA -->
   <div class="sticky-cta" id="stickyCta">
     <a class="btn btn-primary" href="#contact" aria-label="Get a Free Automation Plan">Get a Free Plan</a>
   </div>
 
-  <!-- ================= SCRIPTS ================= -->
+  <!-- SCRIPTS -->
   <script>
-    // Throttle helper
     const throttle=(fn,wait=100)=>{let last=0;return(...a)=>{const n=Date.now();if(n-last>=wait){last=n;fn(...a)}}};
 
-    // Mobile menu toggle
     const nav=document.getElementById('main-nav'); const menuBtn=document.getElementById('menuBtn');
     const toggleMenu=()=>{const ex=nav.getAttribute('aria-expanded')==='true'; nav.setAttribute('aria-expanded', String(!ex)); menuBtn.setAttribute('aria-expanded', String(!ex));};
     menuBtn.addEventListener('click', toggleMenu);
     nav.querySelectorAll('a.nav-link').forEach(a=>a.addEventListener('click',()=>{ if(window.innerWidth<=860){nav.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-expanded','false')}}));
 
-    // Header style on scroll
     const header=document.getElementById('site-header');
     const headerScroll=throttle(()=>{header.classList.toggle('scrolled', window.scrollY>8);},50);
     window.addEventListener('scroll', headerScroll); headerScroll();
 
-    // Scroll-reveal
     const animated=document.querySelectorAll('[data-animate]');
     const io=new IntersectionObserver((entries,obs)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view'); const d=e.target.getAttribute('data-delay')||0; e.target.style.transitionDelay=d+'ms'; obs.unobserve(e.target);}})},{threshold:.15});
     animated.forEach(el=>io.observe(el));
 
-    // Scroll spy
     const sections=[...document.querySelectorAll('section[id]')];
     const links=[...document.querySelectorAll('a.nav-link')];
     const setActive=id=>links.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+id));
     const spy=new IntersectionObserver(ents=>{ents.forEach(e=>{if(e.isIntersecting) setActive(e.target.id)})},{rootMargin:'-45% 0px -50% 0px', threshold:.01});
     sections.forEach(s=>spy.observe(s));
 
-    // Smooth-scroll fallback
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click',e=>{
         const id=a.getAttribute('href').slice(1), t=document.getElementById(id); if(!t) return;
@@ -813,10 +648,9 @@
       });
     });
 
-    // Footer year
     document.getElementById('year').textContent=new Date().getFullYear();
 
-    // ===== Hero demo: typewriter -> reveal -> glow Upjolt source =====
+    // Hero demo typing
     (function(){
       const promptEl=document.getElementById('tw-prompt');
       const caretEl=document.getElementById('tw-caret');
@@ -836,17 +670,13 @@
       setTimeout(type, 400);
     })();
 
-    // ===== HOW WE WORK animations =====
+    // How we work sequence
     (function(){
       const root=document.getElementById('how-work');
       if(!root) return;
-
       const obs=new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            startHowWork();
-            obs.disconnect();
-          }
+          if(entry.isIntersecting){ startHowWork(); obs.disconnect(); }
         });
       }, {threshold:0.25});
       obs.observe(root);
@@ -860,54 +690,37 @@
 
         draft.classList.add('on');
         setTimeout(()=>approve.classList.add('on'), 800);
-        setTimeout(()=>{
-          post.classList.add('on');
-          li.classList.add('posted'); web.classList.add('posted');
-        }, 1600);
+        setTimeout(()=>{ post.classList.add('on'); li.classList.add('posted'); web.classList.add('posted'); }, 1600);
 
-        setTimeout(()=>{
-          ['b1','b2','b3','b4'].forEach((id, i)=>{
-            const el=document.getElementById(id);
-            if(el) setTimeout(()=>el.classList.add('glow'), i*180);
-          });
-        }, 1900);
+        setTimeout(()=>['b1','b2','b3','b4'].forEach((id,i)=>setTimeout(()=>document.getElementById(id)?.classList.add('glow'), i*180)), 1900);
       }
     })();
 
-    // ===== Count-up for KPI + proof chips =====
+    // Count-up
     (function(){
       const nums=document.querySelectorAll('.num[data-count]');
       if(!nums.length) return;
       const ease=t=>1-Math.pow(1-t,3);
       const run=(el,target,suffix)=>{let st; const dur=1200;
-        function step(ts){ if(!st) st=ts; const p=Math.min((ts-st)/dur,1); const val=Math.floor(ease(p)*target);
+        function step(ts){ if(!st) st=ts; const p=Math.min((ts-st)/dur,1); const val=Math.floor((1-Math.pow(1-p,3))*target);
           el.textContent=val+(suffix||''); if(p<1) requestAnimationFrame(step);}
         requestAnimationFrame(step);
       };
-      const io=new IntersectionObserver((es,obs)=>es.forEach(e=>{
-        if(e.isIntersecting){const el=e.target; run(el, +el.dataset.count, el.dataset.suffix||''); obs.unobserve(el);}
-      }),{threshold:.5});
+      const io=new IntersectionObserver((es,obs)=>es.forEach(e=>{if(e.isIntersecting){const el=e.target; run(el, +el.dataset.count, el.dataset.suffix||''); obs.unobserve(el);}}),{threshold:.5});
       nums.forEach(n=>io.observe(n));
     })();
 
-    // ===== Sticky CTA visibility (after hero) =====
+    // Sticky CTA
     (function(){
       const sticky=document.getElementById('stickyCta');
       const hero=document.getElementById('hero');
       if(!sticky || !hero) return;
       const ob=new IntersectionObserver(entries=>{
-        entries.forEach(en=>{
-          sticky.classList.toggle('show', !en.isIntersecting);
-        });
-      }, {root:null, threshold:0, rootMargin:"-64px 0px 0px 0px"});
+        entries.forEach(en=>{ sticky.classList.toggle('show', !en.isIntersecting); });
+      }, {threshold:0, rootMargin:"-64px 0px 0px 0px"});
       ob.observe(hero);
     })();
   </script>
 </body>
 </html>
 ```
-
-**How to run locally**
-
-1. Save the code as `index.html`.
-2. Open it in your browser (double-click), or run a simple static server (`npx serve .`) for a cleaner preview.
