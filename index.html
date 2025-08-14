@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nova Automations — Automate Growth. Rank in AI. Convert More.</title>
+  <meta name="description" content="We make your brand discoverable in AI assistants and automate the busywork: AI search visibility, social media, CV screening, email, and WhatsApp flows." />
+  <!-- Tip: swap to your preferred webfont; system stack keeps it snappy/offline-friendly -->
+  <style>
+    /* ========== CSS VARIABLES (easy theming) ========== */
+    :root{
+      --bg: #0b0f17;            /* page background */
+      --panel: #0f1724;         /* card / panel background */
+      --text: #e6edf6;          /* primary text */
+      --muted: #94a3b8;         /* secondary text */
+      --line: #23324a;          /* subtle border */
+      --accent: #60a5fa;        /* brand accent */
+      --accent-2: #22d3ee;      /* accent gradient 2 */
+      --danger: #ef4444;
+
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+
+      --container: 1200px;
+      --section-pad: clamp(64px, 8vw, 120px);
+    }
+
+    /* ========== BASE / RESET ========== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 10% -10%, #12203a 0%, transparent 60%) no-repeat,
+                  radial-gradient(900px 600px at 120% 10%, #0f1a2f 0%, transparent 60%) no-repeat,
+                  var(--bg);
+      line-height: 1.6;
+      scroll-behavior: smooth; /* native smooth scroll */
+      text-rendering: optimizeLegibility;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--accent-2); outline-offset: 2px;
+    }
+
+    .container{
+      width: min(100% - 32px, var(--container));
+      margin-inline: auto;
+    }
+
+    /* ========== FIXED NAVBAR ========== */
+    header{
+      position: fixed; inset-inline: 0; top: 0; z-index: 50;
+      transition: backdrop-filter .3s ease, background-color .3s ease, border-color .3s ease;
+      background: color-mix(in oklab, var(--bg) 70%, transparent);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+    }
+    header.scrolled{
+      background: color-mix(in oklab, var(--bg) 90%, #000 10%);
+      border-color: var(--line);
+    }
+
+    .nav{
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight: 700; letter-spacing:.3px;
+    }
+    .brand .logo{
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 6px 16px rgba(20,180,255,.35), inset 0 0 20px rgba(255,255,255,.15);
+    }
+
+    nav ul{
+      display:flex; align-items:center; gap: 18px; list-style:none; margin:0; padding:0;
+    }
+    nav a{
+      padding:8px 10px; border-radius:10px; color: var(--muted); font-weight:600;
+      position:relative; transition: color .2s ease, opacity .2s ease;
+      opacity:.9;
+    }
+    nav a:hover{ color: var(--text); opacity:1; }
+    nav a.active{
+      color: var(--text);
+    }
+    /* fancy underline for active */
+    nav a.active::after{
+      content:""; position:absolute; left:10px; right:10px; bottom:4px; height:2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius:2px;
+    }
+
+    /* Mobile menu */
+    .menu-btn{
+      display:none; border:1px solid var(--line); background:transparent; color:var(--text);
+      padding:8px 10px; border-radius:10px; cursor:pointer;
+    }
+    @media (max-width: 860px){
+      nav ul { display:none; position: absolute; top:100%; right:16px; left:16px;
+               background: color-mix(in oklab, var(--bg) 92%, #000 8%);
+               border:1px solid var(--line); border-radius:14px; padding:8px; box-shadow: var(--shadow); }
+      nav[aria-expanded="true"] ul{ display:flex; flex-direction: column; gap:4px; }
+      .menu-btn{ display:inline-flex; align-items:center; gap:8px; }
+    }
+
+    /* ========== HERO ========== */
+    .hero{
+      padding-top: calc(80px + var(--section-pad)); /* leave space for fixed header */
+      padding-bottom: var(--section-pad);
+      position: relative; overflow: clip;
+    }
+    .hero-grid{
+      display:grid; grid-template-columns: 1.2fr 1fr; gap: clamp(24px, 4vw, 48px); align-items:center;
+    }
+    @media (max-width: 920px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px;
+      border-radius:999px; font-size:12px; color: var(--text);
+      background: color-mix(in oklab, var(--panel) 85%, #000 15%);
+      border: 1px solid var(--line);
+    }
+    .badge .dot{
+      width:8px; height:8px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff 0 20%, #8ef 24% 60%, #09f 70% 100%);
+      box-shadow: 0 0 10px #39e;
+    }
+
+    .hero h1{
+      font-size: clamp(36px, 6vw, 64px); line-height: 1.05; margin: 14px 0 12px;
+      letter-spacing: -0.02em;
+    }
+    .hero p{ color: var(--muted); font-size: clamp(16px, 2.2vw, 19px); margin: 0 0 26px; }
+
+    .cta{
+      display:flex; align-items:center; gap:12px; flex-wrap: wrap;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px; cursor:pointer;
+      border:1px solid var(--line); color: var(--text); text-decoration:none;
+      padding:12px 16px; border-radius: 12px; font-weight: 700; letter-spacing:.2px;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .2s ease, border-color .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn-primary{
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent; box-shadow: 0 10px 24px rgba(32,178,255,.3);
+      color:#071018;
+    }
+    .btn-ghost{ background: color-mix(in oklab, var(--panel) 85%, #000 15%); }
+
+    .hero-visual{
+      position: relative;
+      aspect-ratio: 4/3; border-radius: var(--radius); overflow: hidden;
+      background: linear-gradient(180deg, #0b1327, #09101f);
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      isolation:isolate;
+    }
+    .hero-visual img{
+      position:absolute; inset:0; width:100%; height:100%; object-fit: cover;
+      filter: saturate(0.85) contrast(1.05);
+      opacity:.9;
+    }
+    /* decorative gradient blobs */
+    .blob{
+      position:absolute; filter: blur(28px); opacity:.35; mix-blend-mode: screen;
+      pointer-events:none;
+    }
+    .blob.b1{ width: 420px; height:420px; right:-10%; top:-10%;
+      background: radial-gradient(circle at 30% 30%, #33f 0 30%, transparent 60%); }
+    .blob.b2{ width: 380px; height:380px; left:-10%; bottom:-10%;
+      background: radial-gradient(circle at 60% 60%, #2ef 0 30%, transparent 60%); }
+
+    /* ========== GENERIC SECTIONS ========== */
+    section{ padding: var(--section-pad) 0; position:relative; }
+    .section-head{
+      margin-bottom: 28px; display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .section-head h2{
+      font-size: clamp(28px, 4.2vw, 44px); margin: 0; letter-spacing:-.02em;
+    }
+    .section-head p{ margin:0; color:var(--muted); max-width: 800px; }
+
+    /* ========== ABOUT ========== */
+    .about-grid{
+      display:grid; grid-template-columns: 1.2fr 1fr; gap: clamp(24px, 4vw, 48px); align-items:center;
+    }
+    @media (max-width: 960px){ .about-grid{ grid-template-columns: 1fr; } }
+
+    .card{
+      background: color-mix(in oklab, var(--panel) 90%, #000 10%);
+      border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px, 2vw, 24px);
+      box-shadow: var(--shadow);
+    }
+    .about-points{
+      display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap:12px; margin-top:14px;
+    }
+    .chip{
+      display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius: 12px;
+      background: color-mix(in oklab, var(--panel) 80%, #000 20%); border: 1px solid var(--line);
+      font-size: 14px; color: var(--muted);
+    }
+    @media (max-width: 640px){ .about-points{ grid-template-columns: 1fr 1fr; } }
+
+    /* ========== SERVICES ========== */
+    .services{
+      display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(16px, 2.2vw, 22px);
+    }
+    @media (max-width: 900px){ .services{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px){ .services{ grid-template-columns: 1fr; } }
+
+    .service-card{
+      padding: 22px; border-radius: var(--radius); border:1px solid var(--line);
+      background: linear-gradient(180deg, color-mix(in oklab,var(--panel) 92%, #000 8%), color-mix(in oklab,var(--panel) 86%, #000 14%));
+      box-shadow: var(--shadow); transition: transform .15s ease, border-color .2s ease, background .2s ease;
+    }
+    .service-card:hover{ transform: translateY(-4px); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%); }
+    .icon{
+      width: 44px; height:44px; border-radius:12px; display:grid; place-items:center; margin-bottom:12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#031322;
+      box-shadow: inset 0 0 18px rgba(255,255,255,.2);
+    }
+    .service-card h3{ margin: 10px 0 6px; font-size: 18px; }
+    .service-card p{ margin:0; color:var(--muted); font-size: 15px; }
+
+    /* ========== PORTFOLIO ========== */
+    .portfolio-grid{
+      display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 2vw, 18px);
+    }
+    @media (max-width: 980px){ .portfolio-grid{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px){ .portfolio-grid{ grid-template-columns: 1fr; } }
+
+    .work{
+      position: relative; overflow: clip; border-radius: 14px; border:1px solid var(--line);
+      background: #0d1424; aspect-ratio: 16/10; isolation:isolate; box-shadow: var(--shadow);
+    }
+    .work img{ position:absolute; inset:0; width:100%; height:100%; object-fit: cover; opacity:.95; }
+    .work .overlay{
+      position:absolute; inset:auto 0 0 0; padding:12px 14px; background: linear-gradient(180deg, transparent, rgba(0,0,0,.65));
+      display:flex; align-items: flex-end; gap:8px; min-height: 46%;
+      color:#ecf3ff;
+    }
+    .tag{
+      display:inline-block; padding:4px 8px; font-size:12px; border-radius:999px; border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+    }
+    .work h4{ margin: 6px 0 4px; }
+
+    /* ========== CONTACT ========== */
+    .contact-grid{
+      display:grid; grid-template-columns: 1.1fr .9fr; gap: clamp(18px, 3vw, 28px);
+    }
+    @media (max-width: 920px){ .contact-grid{ grid-template-columns: 1fr; } }
+
+    form{
+      display:grid; gap:12px;
+    }
+    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    @media (max-width: 560px){ .grid-2{ grid-template-columns: 1fr; } }
+
+    input, textarea{
+      width:100%; padding:12px 14px; border-radius: 12px; color:var(--text);
+      background: color-mix(in oklab, var(--panel) 86%, #000 14%); border:1px solid var(--line);
+      transition: border-color .2s ease;
+    }
+    input::placeholder, textarea::placeholder{ color: color-mix(in oklab, var(--muted) 70%, #fff 30%); }
+    input:focus, textarea:focus{ border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%); }
+    textarea{ min-height: 140px; resize: vertical; }
+
+    .list{
+      display:grid; gap:10px; margin-top:8px;
+    }
+    .list li{ list-style:none; display:flex; align-items:center; gap:10px; color: var(--muted); }
+
+    /* ========== FOOTER ========== */
+    footer{
+      padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); text-align:center;
+    }
+
+    /* ========== SCROLL ANIMATIONS (CSS + small JS) ========== */
+    [data-animate]{ opacity: 0; transform: translateY(14px); }
+    [data-animate].in-view{ opacity:1; transform: none; transition: opacity .7s ease, transform .7s cubic-bezier(.2,.65,.2,1); }
+
+    /* optional variants (set via data-animate) */
+    [data-animate="fade-up"]{ transform: translateY(22px); }
+    [data-animate="fade-right"]{ transform: translateX(-24px); }
+    [data-animate="fade-left"]{ transform: translateX(24px); }
+    [data-animate="zoom-in"]{ transform: scale(.96); }
+    [data-animate="pop"]{ transform: translateY(16px) scale(.98); }
+
+    /* Reduce motion—respect user's OS preference */
+    @media (prefers-reduced-motion: reduce){
+      * { animation: none !important; transition: none !important; }
+      [data-animate]{ opacity:1 !important; transform:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== HEADER / NAV ========== -->
+  <header id="site-header">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Nova Automations</span>
+      </div>
+
+      <!-- Accessible mobile menu button -->
+      <nav id="main-nav" aria-label="Primary" aria-expanded="false">
+        <button class="menu-btn" id="menuBtn" aria-controls="main-nav" aria-expanded="false">
+          ☰ Menu
+        </button>
+        <ul>
+          <!-- NOTE: hrefs map to section IDs below; JS will handle "active" state while scrolling -->
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#portfolio" class="nav-link">Results</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO (Conversion-focused copy) ========== -->
+  <section id="hero" class="hero">
+    <div class="container hero-grid">
+      <div data-animate="fade-up">
+        <span class="badge"><span class="dot" aria-hidden="true"></span> Make your brand visible in AI. Automate the follow-through.</span>
+        <h1>Be found by AI. <span style="background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;">Automate</span> what happens next.</h1>
+        <p>
+          Nova Automations helps companies rank inside AI assistants (ChatGPT, Copilot) and replaces manual workflows with
+          reliable automations across social, CV screening, email, and WhatsApp. More discovery. More replies. Less busywork.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#contact">Get a Free Automation Plan</a>
+          <a class="btn btn-ghost" href="#services">See What We Automate</a>
+        </div>
+        <p style="color:var(--muted); margin-top:10px; font-size:14px;">⚡ Typical setup: 2–6 weeks • Works with your current tools</p>
+      </div>
+
+      <div class="hero-visual" data-animate="zoom-in" aria-label="Showcase preview">
+        <!-- Placeholder image — swap with your own -->
+        <img src="https://placehold.co/1200x900/png?text=AI+Search+%2B+Automation+System+Preview" alt="Automation system dashboard placeholder" />
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT (Credibility + Outcomes) ========== -->
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-animate="fade-up">Why teams choose Nova</h2>
+        <p data-animate="fade-left">You need more qualified conversations — not more tools to manage. We make AI find you, then automate the path from first touch to booked call.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="card" data-animate="fade-right">
+          <h3>Outcomes we optimize for</h3>
+          <p>
+            We write the structured content AI needs to trust you, then wire automations that move leads forward without
+            chasing. Every deliverable is documented and editable.
+          </p>
+          <div class="about-points">
+            <div class="chip">Appear in AI answers</div>
+            <div class="chip">Reduce manual triage</div>
+            <div class="chip">Faster time-to-reply</div>
+            <div class="chip">Consistent brand voice</div>
+            <div class="chip">Trackable conversions</div>
+            <div class="chip">Own your data</div>
+          </div>
+        </div>
+
+        <div class="card" data-animate="fade-up">
+          <h3>How we work</h3>
+          <p>
+            1) Map your buyer journeys. 2) Install AI search signals and citations. 3) Launch automations for social, CVs,
+            email, and WhatsApp. 4) Measure, iterate, and hand over playbooks.
+          </p>
+          <!-- Placeholder image — swap with your own -->
+          <img src="https://placehold.co/800x400/jpg?text=Process+Roadmap+Placeholder" alt="Process roadmap placeholder" style="margin-top:10px; border-radius:12px; border:1px solid var(--line);" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES (Your requested offers) ========== -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-animate="fade-up">Services</h2>
+        <p data-animate="fade-left">Five core implementations. Pick a starting point — or combine for full-funnel impact.</p>
+      </div>
+
+      <div class="services">
+        <!-- AI Search Visibility -->
+        <article class="service-card" data-animate="pop">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5zM4 18h16v2H4z"></path>
+            </svg>
+          </div>
+          <h3>AI Search Visibility</h3>
+          <p>Make assistants like ChatGPT/Copilot cite you. We add structured data, source-worthy content, and automation that publishes and refreshes it.</p>
+          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
+            <li>Schema & entity mapping</li>
+            <li>Evidence pages & citations</li>
+            <li>Content automations & feeds</li>
+          </ul>
+        </article>
+
+        <!-- Social Media Automation -->
+        <article class="service-card" data-animate="pop">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M3 3h18v4H3zM7 9h10v2H7zM7 13h10v2H7zM7 17h7v2H7z"></path>
+            </svg>
+          </div>
+          <h3>Social Media Automation</h3>
+          <p>Daily posting, scheduling, and inbox actions you can trust — including auto-replies, DMs, and engagement rules.</p>
+          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
+            <li>Content calendar & approvals</li>
+            <li>Comment/DM responders</li>
+            <li>Lead capture to CRM</li>
+          </ul>
+        </article>
+
+        <!-- CV Screening Automation -->
+        <article class="service-card" data-animate="pop">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6 2h12v6H6zM4 10h16v10H4zM8 12h8v2H8zM8 15h5v2H8z"></path>
+            </svg>
+          </div>
+          <h3>CV Screening Automation</h3>
+          <p>Parse resumes, rank candidates, and auto-shortlist to your ATS — with auditable criteria.</p>
+          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
+            <li>Resume parsing & scoring</li>
+            <li>Knock-out & priority rules</li>
+            <li>ATS sync + alerts</li>
+          </ul>
+        </article>
+
+        <!-- Email Automation -->
+        <article class="service-card" data-animate="pop">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M2 6l10 7L22 6v12H2zM22 6H2l10 7z"></path>
+            </svg>
+          </div>
+          <h3>Email Automation</h3>
+          <p>Behavior-based drips, sequences, and transactional triggers that turn interest into meetings.</p>
+          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
+            <li>Lifecycle & nurture flows</li>
+            <li>Event-based triggers</li>
+            <li>Deliverability hardening</li>
+          </ul>
+        </article>
+
+        <!-- WhatsApp Automation -->
+        <article class="service-card" data-animate="pop">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.5 2 2 6.1 2 11c0 1.7.5 3.3 1.4 4.7L2 22l6.6-1.9c1.1.3 2.2.5 3.4.5 5.5 0 10-4.1 10-9.1S17.5 2 12 2z"></path>
+            </svg>
+          </div>
+          <h3>WhatsApp Automation</h3>
+          <p>Onboarding, reminders, and support flows that feel human — at scale.</p>
+          <ul style="margin:10px 0 0 18px; color:var(--muted); font-size:14px;">
+            <li>Templates & quick-replies</li>
+            <li>Handover to human routing</li>
+            <li>CSAT & follow-ups</li>
+          </ul>
+        </article>
+
+        <!-- Optional: Add-On / Bundle card -->
+        <article class="service-card" data-animate="pop">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M3 7l9-4 9 4v10l-9 4-9-4V7zm9-2.2L6 7.2V16l6 2.8 6-2.8V7.2l-6-2.4z"></path>
+            </svg>
+          </div>
+          <h3>Implementation Bundle</h3>
+          <p>End-to-end setup: AI visibility + social + email + WhatsApp + ATS. One roadmap, one team, one invoice.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RESULTS / PORTFOLIO (Case-style) ========== -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-animate="fade-up">Selected Results</h2>
+        <p data-animate="fade-left">Placeholder case studies. Replace with your metrics, stacks, and screenshots.</p>
+      </div>
+
+      <div class="portfolio-grid">
+        <!-- AI Search Visibility Case -->
+        <a class="work" href="#" aria-label="AI Search Visibility Case" data-animate="fade-up">
+          <img src="https://placehold.co/1200x750/webp?text=AI+Search+Visibility" alt="AI search visibility dashboard placeholder" />
+          <div class="overlay">
+            <div>
+              <span class="tag">AI Visibility</span>
+              <h4>From Invisible to Cited</h4>
+              <small>Entity schema + citation content → assistant mentions within 30 days.</small>
+            </div>
+          </div>
+        </a>
+
+        <!-- Social Media Automation Case -->
+        <a class="work" href="#" aria-label="Social Automation Case" data-animate="fade-up">
+          <img src="https://placehold.co/1200x750/webp?text=Social+Automation" alt="Social automation calendar placeholder" />
+          <div class="overlay">
+            <div>
+              <span class="tag">Social</span>
+              <h4>Hands-Off Posting & Inbox</h4>
+              <small>Scheduled posts + smart DMs → 2× replies, consistent weekly cadence.</small>
+            </div>
+          </div>
+        </a>
+
+        <!-- CV Screening Case -->
+        <a class="work" href="#" aria-label="CV Screening Case" data-animate="fade-up">
+          <img src="https://placehold.co/1200x750/webp?text=CV+Screening+Automation" alt="CV screening pipeline placeholder" />
+          <div class="overlay">
+            <div>
+              <span class="tag">Recruitment</span>
+              <h4>Shortlists in Minutes</h4>
+              <small>Parsing + scoring + ATS sync → time-to-shortlist down 70%.</small>
+            </div>
+          </div>
+        </a>
+
+        <!-- Email Automation Case -->
+        <a class="work" href="#" aria-label="Email Automation Case" data-animate="fade-up">
+          <img src="https://placehold.co/1200x750/webp?text=Email+Automation" alt="Email automation performance placeholder" />
+          <div class="overlay">
+            <div>
+              <span class="tag">Email</span>
+              <h4>Sequences that Convert</h4>
+              <small>Behavior triggers + deliverability → meetings booked on autopilot.</small>
+            </div>
+          </div>
+        </a>
+
+        <!-- WhatsApp Automation Case -->
+        <a class="work" href="#" aria-label="WhatsApp Automation Case" data-animate="fade-up">
+          <img src="https://placehold.co/1200x750/webp?text=WhatsApp+Automation" alt="WhatsApp automation flows placeholder" />
+          <div class="overlay">
+            <div>
+              <span class="tag">WhatsApp</span>
+              <h4>Instant Answers, Human When Needed</h4>
+              <small>Onboarding & support flows + agent handover → higher CSAT.</small>
+            </div>
+          </div>
+        </a>
+
+        <!-- Bundle Case -->
+        <a class="work" href="#" aria-label="Full Implementation Case" data-animate="fade-up">
+          <img src="https://placehold.co/1200x750/webp?text=Full+Implementation" alt="Full implementation placeholder" />
+          <div class="overlay">
+            <div>
+              <span class="tag">Bundle</span>
+              <h4>Full-Funnel Automation</h4>
+              <small>AI discovery → WhatsApp booking — tracked end to end.</small>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT (Lead capture) ========== -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-animate="fade-up">Get your free automation plan</h2>
+        <p data-animate="fade-left">Tell us your goals. We’ll map AI search opportunities and the fastest automations to ship in 30 days.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- NOTE: Replace alert with your real endpoint; keep fields for CRM mapping -->
+        <form class="card" data-animate="fade-right" onsubmit="event.preventDefault(); alert('Demo form submitted. Connect this to your CRM or backend.');">
+          <div class="grid-2">
+            <label>
+              <span class="sr">Name</span>
+              <input name="name" placeholder="Your name" required />
+            </label>
+            <label>
+              <span class="sr">Email</span>
+              <input type="email" name="email" placeholder="you@example.com" required />
+            </label>
+          </div>
+          <label>
+            <span class="sr">Company</span>
+            <input name="company" placeholder="Company" />
+          </label>
+          <label>
+            <span class="sr">Primary service</span>
+            <input name="service" placeholder="e.g., AI Search Visibility / Social / CV / Email / WhatsApp" />
+          </label>
+          <label>
+            <span class="sr">Message</span>
+            <textarea name="message" placeholder="What outcome do you want in the next 90 days?"></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">Send Request</button>
+          <small style="color:var(--muted);">By submitting, you agree to our friendly privacy policy.</small>
+        </form>
+
+        <aside class="card" data-animate="fade-up">
+          <h3>Implementation details</h3>
+          <p>We integrate with your current stack. Typical toolchain examples:</p>
+          <ul class="list">
+            <li>🧠 AI Search: schema, content feeds, knowledge pages</li>
+            <li>📣 Social: schedulers, auto-inbox, CRM leads</li>
+            <li>🧾 CV: parsing, scoring rules, ATS sync</li>
+            <li>✉️ Email: sequences, events, webhooks</li>
+            <li>💬 WhatsApp: onboarding, reminders, support</li>
+          </ul>
+          <hr style="border-color:var(--line); margin:16px 0;">
+          <p><strong>Based in:</strong> Limassol, Cyprus • <strong>Working globally</strong></p>
+          <!-- Placeholder map/banner -->
+          <img src="https://placehold.co/800x300/png?text=Global+Coverage+Map+Placeholder" alt="Map placeholder" style="margin-top:10px; border-radius:10px; border:1px solid var(--line);" />
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Nova Automations · AI Visibility & Workflow Automation</div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    /* ---------------------------------------------
+       Small, dependency-free JS for:
+       1) Mobile menu toggle
+       2) Header style on scroll
+       3) Scroll-reveal animations (IntersectionObserver)
+       4) Scroll spy (active nav link)
+       5) Smooth-scroll fallback for older browsers
+       --------------------------------------------- */
+
+    // 0) Utility: throttle (for scroll events)
+    const throttle = (fn, wait = 100) => {
+      let last = 0; return (...args) => {
+        const now = Date.now(); if (now - last >= wait) { last = now; fn(...args); }
+      };
+    };
+
+    // 1) Mobile menu toggle (accessible)
+    const nav = document.getElementById('main-nav');
+    const menuBtn = document.getElementById('menuBtn');
+    const toggleMenu = () => {
+      const expanded = nav.getAttribute('aria-expanded') === 'true';
+      nav.setAttribute('aria-expanded', String(!expanded));
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+    };
+    menuBtn.addEventListener('click', toggleMenu);
+    // Close menu on link click (mobile)
+    nav.querySelectorAll('a.nav-link').forEach(a => a.addEventListener('click', () => {
+      if (window.innerWidth <= 860) {
+        nav.setAttribute('aria-expanded','false'); menuBtn.setAttribute('aria-expanded','false');
+      }
+    }));
+
+    // 2) Header style on scroll
+    const header = document.getElementById('site-header');
+    const headerScroll = throttle(() => {
+      header.classList.toggle('scrolled', window.scrollY > 8);
+    }, 50);
+    window.addEventListener('scroll', headerScroll); headerScroll();
+
+    // 3) Scroll-reveal animations
+    const animated = document.querySelectorAll('[data-animate]');
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          // Stagger a tiny bit when multiple siblings enter together
+          const delay = entry.target.getAttribute('data-delay') || 0;
+          entry.target.style.transitionDelay = delay + 'ms';
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    animated.forEach(el => io.observe(el));
+
+    // 4) Scroll spy — highlight nav link for section in view
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    const links = Array.from(document.querySelectorAll('a.nav-link'));
+    const setActive = (id) => {
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    };
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0.01 });
+    sections.forEach(s => spy.observe(s));
+
+    // 5) Smooth-scroll fallback for older browsers
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+        if (!('scrollBehavior' in document.documentElement.style)) {
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top + window.pageYOffset - 72;
+          window.scrollTo({ top }); // instant fallback
+        }
+      });
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Accessible helper (visually-hidden class) -->
+  <style>
+    .sr{ position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+  </style>
+</body>
+</html>
