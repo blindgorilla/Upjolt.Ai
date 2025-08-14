@@ -117,13 +117,66 @@
     .section-head h2{font-size:clamp(28px,4.2vw,44px); margin:0; letter-spacing:-.02em}
     .section-head p{margin:0; color:var(--muted); max-width:800px}
 
-    /* ABOUT */
-    .about-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(24px,4vw,48px); align-items:center}
+    /* ABOUT / WHY TEAMS CHOOSE UPJOLT */
+    .about-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(24px,4vw,48px); align-items:stretch}
     @media (max-width:960px){.about-grid{grid-template-columns:1fr}}
     .card{background:color-mix(in oklab,var(--panel) 90%, #000 10%); border:1px solid var(--line); border-radius:var(--radius); padding:clamp(16px,2vw,24px); box-shadow:var(--shadow)}
-    .about-points{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:14px}
-    .chip{display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:12px; background:color-mix(in oklab,var(--panel) 80%, #000 20%); border:1px solid var(--line); font-size:14px; color:var(--muted)}
-    @media (max-width:640px){.about-points{grid-template-columns:1fr 1fr}}
+    .card h3{margin-top:0}
+
+    /* Outcomes: clean visual tiles */
+    .outcomes{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:14px}
+    @media (max-width:700px){.outcomes{grid-template-columns:1fr 1fr}}
+    .outcome{
+      border:1px solid var(--line); border-radius:12px; padding:12px;
+      background:linear-gradient(180deg, color-mix(in oklab,var(--panel) 92%, #000 8%), color-mix(in oklab,var(--panel) 86%, #000 14%));
+      display:grid; grid-template-columns: 30px 1fr; gap:10px; align-items:center;
+      transition:transform .15s ease, border-color .2s ease;
+    }
+    .outcome:hover{transform:translateY(-2px); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
+    .out-ico{font-size:20px; filter: drop-shadow(0 2px 8px rgba(0,0,0,.2))}
+    .out-title{font-weight:700}
+    .out-sub{color:var(--muted); font-size:13px; margin-top:2px}
+
+    /* HOW WE WORK: animated pipeline */
+    .how-pipeline{position:relative; overflow:hidden}
+    .steps{display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px}
+    @media (max-width:980px){.steps{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+    .step{border:1px solid var(--line); border-radius:12px; padding:12px; background:rgba(255,255,255,.03)}
+    .step h4{margin:0 0 6px}
+    .mini-vis{position:relative; border:1px dashed color-mix(in oklab, var(--line) 80%, #fff 20%); border-radius:10px; padding:10px; min-height:88px; overflow:hidden;
+      background:rgba(255,255,255,.02)}
+    .note{color:var(--muted); font-size:12px; margin-top:8px}
+
+    /* Step 1: Search bar with typing phrases */
+    .search-bar{display:flex; align-items:center; gap:8px; padding:8px 10px; background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:999px}
+    .search-icon{opacity:.8}
+    .search-text{white-space:nowrap; overflow:hidden}
+    .caret-s{width:8px;height:16px;margin-left:2px;background:#8fd5ff;border-radius:2px;opacity:0}
+    #caret-search.typing{animation:blink 1s steps(2, jump-none) infinite}
+
+    /* Step 2: Publish cards sliding in */
+    .pub-wrap{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+    .pub-card{background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:8px; padding:8px; transform:translateY(16px); opacity:.0}
+    .pub-card.show{transform:none; opacity:1; transition:all .5s cubic-bezier(.2,.65,.2,1)}
+    .pub-badge{font-size:11px; color:var(--text); background:linear-gradient(135deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; border:1px solid color-mix(in oklab, var(--accent) 30%, #fff 70%); border-radius:999px; padding:2px 6px}
+
+    /* Step 3: Mini AI card */
+    .mini-ai{padding:8px; border:1px solid var(--line); border-radius:8px; background:rgba(255,255,255,.04); transform:translateY(10px); opacity:.0}
+    .mini-ai.show{transform:none; opacity:1; transition:all .5s cubic-bezier(.2,.65,.2,1)}
+    .mini-row{height:8px; border-radius:6px; background:rgba(255,255,255,.08); margin:6px 0; position:relative; overflow:hidden}
+    .mini-row::after{content:""; position:absolute; inset:0; transform:translateX(-100%); background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent); animation:shimmer 2.2s infinite}
+    .mini-srcs{display:flex; gap:6px; margin-top:4px; flex-wrap:wrap}
+    .src{font-size:11px; color:var(--muted); border:1px solid var(--line); padding:3px 6px; border-radius:999px; background:rgba(255,255,255,.04)}
+    .src.upjolt{border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
+    .src.upjolt.glow{box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.8s ease-out 2}
+
+    /* Step 4: Metrics bars growing */
+    .bars{display:grid; gap:6px; margin-top:2px}
+    .bar{height:10px; border-radius:8px; background:rgba(255,255,255,.06); position:relative; overflow:hidden}
+    .bar > span{position:absolute; inset:0; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-2));}
+    .bar.grow > span{transition:width .9s cubic-bezier(.2,.65,.2,1)}
 
     /* SERVICES */
     .services{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,2.2vw,22px)}
@@ -250,32 +303,120 @@
     </div>
   </section>
 
-  <!-- ================= ABOUT ================= -->
+  <!-- ================= ABOUT / WHY TEAMS CHOOSE ================= -->
   <section id="about">
     <div class="container">
       <div class="section-head">
         <h2 data-animate="fade-up">Why teams choose Upjolt</h2>
-        <p data-animate="fade-left">You need more qualified conversations — not more tools to manage. We make AI find you, then automate the path from first touch to booked call.</p>
+        <p data-animate="fade-left">Your buyers are asking AI for solutions. We make sure you’re the answer they see — then we automate the follow-through.</p>
       </div>
+
       <div class="about-grid">
+        <!-- LEFT: Simple message + outcomes -->
         <div class="card" data-animate="fade-right">
-          <h3>Outcomes we optimize for</h3>
-          <p>We write the structured content AI needs to trust you, then wire automations that move leads forward without chasing. Every deliverable is documented and editable.</p>
-          <div class="about-points">
-            <div class="chip">Appear in AI answers</div>
-            <div class="chip">Reduce manual triage</div>
-            <div class="chip">Faster time-to-reply</div>
-            <div class="chip">Consistent brand voice</div>
-            <div class="chip">Trackable conversions</div>
-            <div class="chip">Own your data</div>
+          <h3>We make AI find you — then turn interest into action.</h3>
+          <p>
+            Plain and simple: we publish the right evidence every day on LinkedIn and your site, so assistants like ChatGPT trust and cite you.
+            When people discover you, automations reply, qualify, and book time — without manual chasing.
+          </p>
+
+          <!-- Outcomes (clean visuals) -->
+          <div class="outcomes" aria-label="Outcomes we optimize for">
+            <div class="outcome" data-animate="pop">
+              <div class="out-ico">🔎</div>
+              <div><div class="out-title">Appear in AI answers</div><div class="out-sub">Be cited when buyers ask ChatGPT/Copilot.</div></div>
+            </div>
+            <div class="outcome" data-animate="pop" data-delay="80">
+              <div class="out-ico">⚡</div>
+              <div><div class="out-title">Faster time-to-reply</div><div class="out-sub">Auto-DMs, auto-emails, human handoff.</div></div>
+            </div>
+            <div class="outcome" data-animate="pop" data-delay="120">
+              <div class="out-ico">🧹</div>
+              <div><div class="out-title">Less manual triage</div><div class="out-sub">Qualify leads and candidates automatically.</div></div>
+            </div>
+            <div class="outcome" data-animate="pop" data-delay="160">
+              <div class="out-ico">🗣️</div>
+              <div><div class="out-title">Consistent voice</div><div class="out-sub">Templates + approvals keep tone aligned.</div></div>
+            </div>
+            <div class="outcome" data-animate="pop" data-delay="200">
+              <div class="out-ico">📊</div>
+              <div><div class="out-title">Trackable conversions</div><div class="out-sub">Every step has a measurable outcome.</div></div>
+            </div>
+            <div class="outcome" data-animate="pop" data-delay="240">
+              <div class="out-ico">🔒</div>
+              <div><div class="out-title">Own your data</div><div class="out-sub">Keep the content and the insights.</div></div>
+            </div>
           </div>
         </div>
-        <div class="card" data-animate="fade-up">
+
+        <!-- RIGHT: How we work (visual pipeline) -->
+        <div class="card how-pipeline" id="how-work" data-animate="fade-up">
           <h3>How we work</h3>
-          <p>1) Map your buyer journeys. 2) Install AI search signals and citations. 3) Launch automations for social, CVs, email, and WhatsApp. 4) Measure, iterate, and hand over playbooks.</p>
-          <img src="https://placehold.co/800x400/jpg?text=Process+Roadmap+Placeholder" alt="Process roadmap placeholder" style="margin-top:10px;border-radius:12px;border:1px solid var(--line)">
+          <div class="steps">
+            <!-- Step 1 -->
+            <div class="step">
+              <h4>1) Your buyers are searching</h4>
+              <div class="mini-vis">
+                <div class="search-bar">
+                  <span class="search-icon">🔎</span>
+                  <span class="search-text" id="hw-query"></span>
+                  <span class="caret-s" id="caret-search"></span>
+                </div>
+                <div class="note">We map the questions your buyers ask.</div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step">
+              <h4>2) We create & publish daily</h4>
+              <div class="mini-vis">
+                <div class="pub-wrap">
+                  <div class="pub-card" id="pub-li">
+                    <span class="pub-badge">LinkedIn</span>
+                    <div class="mini-row"></div><div class="mini-row"></div>
+                  </div>
+                  <div class="pub-card" id="pub-web">
+                    <span class="pub-badge">Website</span>
+                    <div class="mini-row"></div><div class="mini-row"></div>
+                  </div>
+                </div>
+                <div class="note">Short answers, evidence pages, and schema your AI assistants can trust.</div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step">
+              <h4>3) AI finds & recommends you</h4>
+              <div class="mini-vis">
+                <div class="mini-ai" id="mini-ai">
+                  <div class="mini-row" style="width:85%"></div>
+                  <div class="mini-row" style="width:70%"></div>
+                  <div class="mini-row" style="width:55%"></div>
+                  <div class="mini-srcs">
+                    <span class="src">industry report</span>
+                    <span class="src">schema docs</span>
+                    <span class="src upjolt" id="src-upjolt">upjolt.ai</span>
+                  </div>
+                </div>
+                <div class="note">Assistants cite your content as a trusted source.</div>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step">
+              <h4>4) We measure, improve & report</h4>
+              <div class="mini-vis">
+                <div class="bars">
+                  <div class="bar" data-val="78"><span></span></div>
+                  <div class="bar" data-val="62"><span></span></div>
+                  <div class="bar" data-val="90"><span></span></div>
+                </div>
+                <div class="note">Weekly insights: visibility, replies, bookings — and what to ship next.</div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </div><!-- /about-grid -->
     </div>
   </section>
 
@@ -491,6 +632,70 @@
         }
       }
       setTimeout(type, 400);
+    })();
+
+    // ===== HOW WE WORK animations (trigger once on view) =====
+    (function(){
+      const root=document.getElementById('how-work');
+      if(!root) return;
+
+      const obs=new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            startPipeline();
+            obs.disconnect();
+          }
+        });
+      }, {threshold:0.3});
+      obs.observe(root);
+
+      function startPipeline(){
+        // Step 1: Search queries typing loop
+        const qEl=document.getElementById('hw-query');
+        const caret=document.getElementById('caret-search');
+        const queries=[
+          "automate LinkedIn replies",
+          "screen CVs automatically",
+          "email drip setup",
+          "WhatsApp client onboarding",
+          "appear in ChatGPT answers"
+        ];
+        let qi=0, ci=0, deleting=false;
+        caret.classList.add('typing');
+        function tick(){
+          const word=queries[qi];
+          if(!deleting){
+            qEl.textContent=word.slice(0,++ci);
+            if(ci===word.length){ deleting=true; setTimeout(tick, 800); return; }
+          }else{
+            qEl.textContent=word.slice(0,--ci);
+            if(ci===0){ deleting=false; qi=(qi+1)%queries.length; setTimeout(tick, 200); return; }
+          }
+          setTimeout(tick, 28);
+        }
+        tick();
+
+        // Step 2: show publish cards
+        setTimeout(()=>document.getElementById('pub-li').classList.add('show'), 600);
+        setTimeout(()=>document.getElementById('pub-web').classList.add('show'), 850);
+
+        // Step 3: reveal mini AI + glow Upjolt
+        setTimeout(()=>{
+          const ai=document.getElementById('mini-ai');
+          const src=document.getElementById('src-upjolt');
+          ai.classList.add('show');
+          setTimeout(()=>src.classList.add('glow'), 550);
+        }, 1200);
+
+        // Step 4: grow bars
+        setTimeout(()=>{
+          document.querySelectorAll('#how-work .bar').forEach(bar=>{
+            const val=+bar.getAttribute('data-val') || 0;
+            bar.classList.add('grow');
+            requestAnimationFrame(()=>bar.querySelector('span').style.width=val+'%');
+          });
+        }, 1500);
+      }
     })();
   </script>
 </body>
