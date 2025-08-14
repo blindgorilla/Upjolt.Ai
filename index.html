@@ -32,12 +32,34 @@
     .container{width:min(100% - 32px, var(--container)); margin-inline:auto}
 
     /* ================= HEADER ================= */
-    header{position:fixed; inset-inline:0; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px);
+    header{position:fixed; inset-inline:0; top:0; z-index:60; backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px);
       background: color-mix(in oklab, var(--bg) 70%, transparent); border-bottom:1px solid transparent; transition:background .3s,border-color .3s}
     header.scrolled{background: color-mix(in oklab, var(--bg) 90%, #000 10%); border-color:var(--line)}
     .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
     .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
-    .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 6px 16px rgba(20,180,255,.35), inset 0 0 20px rgba(255,255,255,.15)}
+    /* === Animated brand symbol === */
+    .brand .logo{
+      position:relative; width:34px;height:34px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      box-shadow:0 6px 16px rgba(20,180,255,.35), inset 0 0 20px rgba(255,255,255,.15);
+      overflow:hidden;
+      isolation:isolate;
+    }
+    /* spinning glow */
+    .brand .logo::before{
+      content:""; position:absolute; inset:-35% -35%;
+      background:conic-gradient(from 0deg, rgba(255,255,255,.35), rgba(255,255,255,0) 55%, rgba(255,255,255,.35));
+      filter:blur(10px); mix-blend-mode:screen; animation:spin 6s linear infinite;
+    }
+    /* orbiting spark */
+    .brand .logo::after{
+      content:""; position:absolute; width:8px;height:8px;border-radius:999px; background:#fff;
+      top:50%; left:50%; transform-origin:-12px -12px; box-shadow:0 0 12px #9fe6ff, 0 0 20px #22d3ee;
+      animation:orbit 3.8s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes orbit{to{transform:rotate(360deg)}}
+
     nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
     nav a{padding:8px 10px; border-radius:10px; color:var(--muted); font-weight:600; position:relative; transition:color .2s,opacity .2s; opacity:.9}
     nav a:hover{color:var(--text);opacity:1}
@@ -147,7 +169,7 @@
     .out-title{font-weight:800}
     .out-sub{color:var(--muted); font-size:14px; margin-top:2px}
 
-    /* ================= HOW WE WORK (new rows) ================= */
+    /* ================= HOW WE WORK (rows) ================= */
     #process .card{
       background:color-mix(in oklab,var(--panel) 90%, #000 10%);
       border:1px solid color-mix(in oklab, var(--line) 78%, #fff 22%);
@@ -169,32 +191,25 @@
     .ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#031322; box-shadow:inset 0 0 18px rgba(255,255,255,.2)}
     .caption{color:var(--muted); font-size:13px; margin-top:2px}
 
-    /* Row B: flow */
     .flow{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px}
     .step-pill{border:1px solid var(--line); border-radius:999px; padding:6px 10px; font-size:13px; color:var(--muted); background:rgba(255,255,255,.04); position:relative}
     .step-pill.on{color:var(--text); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%); box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.4s ease-out 2}
     .arrow{opacity:.6}
-    .phone{border:1px solid var(--line); border-radius:18px; width:160px; height:280px; background:rgba(255,255,255,.03); margin-inline:auto; display:grid; grid-template-rows:1fr auto; padding:12px; position:relative}
-    .phone .screen{border:1px dashed color-mix(in oklab, var(--line) 80%, #fff 20%); border-radius:10px; background:rgba(255,255,255,.02)}
-    .approve-btn{margin-top:10px; justify-self:center; border:1px solid var(--line); background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; font-weight:800; border-radius:999px; padding:6px 10px; cursor:default; opacity:.7}
-    .approve-btn.done{box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.6s ease-out 2; opacity:1}
     .post-card.posted{border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%); box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.2s ease-out 2}
     .check{position:absolute; right:10px; top:10px; width:22px;height:22px;border-radius:999px; display:grid;place-items:center;
       background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; opacity:0; transform:scale(.6)}
     .post-card.posted .check{opacity:1; transform:none; transition:all .25s ease}
 
-    /* Row C badges */
     .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
     .badge-chip{font-size:12px; border:1px solid var(--line); padding:5px 8px; border-radius:999px; background:rgba(255,255,255,.04)}
     .badge-chip.glow{box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.4s ease-out 2}
 
-    /* Row D stats chips */
     .stat-chip{display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.03)}
     .stat-chip .num{font-size:26px}
 
     @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(32,178,255,.45)}100%{box-shadow:0 0 0 20px rgba(32,178,255,0)}}
 
-    /* ================= SERVICES/RESULTS/CONTACT (unchanged) ================= */
+    /* ================= SERVICES/RESULTS/CONTACT (cards) ================= */
     .services{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,2.2vw,22px)}
     @media (max-width:900px){.services{grid-template-columns:1fr 1fr}}
     @media (max-width:580px){.services{grid-template-columns:1fr}}
@@ -203,28 +218,76 @@
       box-shadow:var(--shadow); transition:transform .15s, border-color .2s, background .2s}
     .service-card:hover{transform:translateY(-4px); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
     .icon{width:44px;height:44px;border-radius:12px; display:grid; place-items:center; margin-bottom:12px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#031322; box-shadow:inset 0 0 18px rgba(255,255,255,.2)}
+
+    /* ===== Selected Results visuals ===== */
     .portfolio-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,2vw,18px)}
     @media (max-width:980px){.portfolio-grid{grid-template-columns:1fr 1fr}}
     @media (max-width:600px){.portfolio-grid{grid-template-columns:1fr}}
     .work{position:relative; overflow:clip; border-radius:14px; border:1px solid var(--line); background:#0d1424; aspect-ratio:16/10; isolation:isolate; box-shadow:var(--shadow)}
-    .work img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.95}
     .work .overlay{position:absolute; inset:auto 0 0 0; padding:12px 14px; background:linear-gradient(180deg,transparent,rgba(0,0,0,.65));
       display:flex; align-items:flex-end; gap:8px; min-height:46%; color:#ecf3ff}
     .tag{display:inline-block; padding:4px 8px; font-size:12px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.25)}
+    /* the animated viz layer */
+    .viz{position:absolute; inset:0; overflow:hidden; border-radius:14px; background:radial-gradient(120% 120% at -10% -10%, #142036 0%, transparent 55%), #0b1426}
+    .work .viz > *{position:absolute}
 
-    .contact-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(18px,3vw,28px)}
-    @media (max-width:920px){.contact-grid{grid-template-columns:1fr}}
-    form{display:grid; gap:12px}
-    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    @media (max-width:560px){.grid-2{grid-template-columns:1fr}}
-    input,textarea{width:100%; padding:12px 14px; border-radius:12px; color:var(--text); background:color-mix(in oklab,var(--panel) 86%, #000 14%); border:1px solid var(--line); transition:border-color .2s}
-    input::placeholder,textarea::placeholder{color:color-mix(in oklab,var(--muted) 70%, #fff 30%)}
-    input:focus,textarea:focus{border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
-    textarea{min-height:140px; resize:vertical}
-    .list{display:grid; gap:10px; margin-top:8px}
-    .list li{list-style:none; display:flex; align-items:center; gap:10px; color:var(--muted)}
+    /* --- AI Visibility: network + scan --- */
+    .viz.ai .scan{inset:0; background:linear-gradient(90deg, transparent 40%, rgba(120,220,255,.16) 50%, transparent 60%); transform:translateX(-100%); animation:scanX 5s linear infinite}
+    @keyframes scanX{to{transform:translateX(100%)}}
+    .viz.ai .node{width:10px;height:10px;border-radius:999px;background:#8fe6ff; box-shadow:0 0 12px #8fe6ff, 0 0 24px #22d3ee; animation:popPulse 2.4s ease-in-out infinite}
+    .viz.ai .n1{left:14%; top:22%}
+    .viz.ai .n2{left:46%; top:32%; animation-delay:.4s}
+    .viz.ai .n3{left:70%; top:18%; animation-delay:.8s}
+    .viz.ai .n4{left:26%; top:58%; animation-delay:1.2s}
+    .viz.ai .n5{left:60%; top:64%; animation-delay:1.6s}
+    .viz.ai .link{height:2px; background:linear-gradient(90deg, rgba(150,220,255,.2), rgba(150,220,255,.6), rgba(150,220,255,.2)); transform-origin:left center; opacity:.7}
+    /* fixed lines */
+    .viz.ai .l1{left:16%; top:24%; width:34%; transform:rotate(10deg)}
+    .viz.ai .l2{left:48%; top:34%; width:26%; transform:rotate(-12deg)}
+    .viz.ai .l3{left:20%; top:60%; width:42%; transform:rotate(8deg)}
+    .viz.ai .l4{left:46%; top:34%; width:40%; transform:rotate(26deg)}
+    @keyframes popPulse{0%,100%{transform:scale(.9)} 50%{transform:scale(1.15)}}
 
-    footer{padding:28px 0; border-top:1px solid var(--line); color:var(--muted); text-align:center}
+    /* --- Social: calendar + bubbles --- */
+    .viz.social .calendar{left:8%; top:12%; width:54%; height:58%; display:grid; grid-template-columns:repeat(7,1fr); grid-template-rows:repeat(4,1fr); gap:4px}
+    .viz.social .cell{background:rgba(255,255,255,.06); border-radius:6px}
+    .viz.social .cell:nth-child(odd){animation:glow 4s ease-in-out infinite}
+    .viz.social .cell:nth-child(even){animation:glow 4s ease-in-out 1.2s infinite}
+    @keyframes glow{0%,100%{box-shadow:none} 50%{box-shadow:0 0 0 2px rgba(98,194,255,.35) inset}}
+    .viz.social .bubble{background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:999px; height:16px}
+    .viz.social .b1{right:12%; top:26%; width:120px; animation:slide 5.2s ease-in-out infinite}
+    .viz.social .b2{right:10%; top:44%; width:160px; animation:slide 5.2s ease-in-out .8s infinite}
+    @keyframes slide{0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}}
+
+    /* --- CV Screening: document + scanline --- */
+    .viz.cv .doc{left:12%; top:14%; width:54%; height:64%; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.25)}
+    .viz.cv .line{left:16%; right:16%; height:8px; background:rgba(255,255,255,.1); border-radius:6px}
+    .viz.cv .line.l1{top:20%}.viz.cv .line.l2{top:32%}.viz.cv .line.l3{top:44%}.viz.cv .line.l4{top:56%}
+    .viz.cv .scan{left:8%; right:8%; height:18px; top:-10%; background:linear-gradient(180deg,transparent, rgba(98,194,255,.2), transparent); animation:scanY 3.6s linear infinite}
+    @keyframes scanY{to{top:90%}}
+    .viz.cv .star{right:12%; bottom:16%; width:28px;height:28px;background:radial-gradient(circle at 30% 30%,#fff, #9fe); border-radius:6px; transform:rotate(45deg); filter:blur(.3px); animation:twinkle 2.2s ease-in-out infinite}
+    @keyframes twinkle{50%{transform:rotate(45deg) scale(1.12)}}
+
+    /* --- Email: envelope + plane path --- */
+    .viz.email .env{left:12%; bottom:16%; width:40%; height:26%; border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06)); border:1px solid rgba(255,255,255,.3)}
+    .viz.email .flap{left:12%; bottom:26%; width:40%; height:14%; background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.05)); clip-path:polygon(0 0,100% 0,50% 100%)}
+    .viz.email .track{left:58%; top:26%; width:34%; height:34%; border-radius:50%; border:2px dashed rgba(150,220,255,.4); animation:spin 8s linear infinite}
+    .viz.email .plane{left:72%; top:40%; width:0;height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-bottom:16px solid #9fe; transform:rotate(20deg); animation:plane 2.8s ease-in-out infinite}
+    @keyframes plane{50%{transform:translate(10px,-12px) rotate(25deg)}}
+
+    /* --- WhatsApp: phone + chat bubbles --- */
+    .viz.wa .phone{right:10%; top:12%; width:44%; height:70%; border-radius:16px; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.04)}
+    .viz.wa .msg{left:8%; right:14%; height:14px; border-radius:10px; background:rgba(255,255,255,.12)}
+    .viz.wa .m1{top:22%; animation:chat 4s ease-in-out infinite}
+    .viz.wa .m2{top:36%; right:8%; left:auto; width:60%; background:rgba(255,255,255,.2); animation:chat 4s ease-in-out .6s infinite}
+    .viz.wa .m3{top:52%; animation:chat 4s ease-in-out 1.2s infinite}
+    @keyframes chat{50%{transform:translateY(-6px)}}
+
+    /* --- Bundle: flowing pipeline --- */
+    .viz.bundle .pipe{left:10%; right:10%; top:48%; height:8px; border-radius:8px; background:linear-gradient(90deg, rgba(120,200,255,.1), rgba(120,200,255,.45), rgba(120,200,255,.1)); background-size:200% 100%; animation:flow 3.5s linear infinite}
+    @keyframes flow{to{background-position:200% 0}}
+    .viz.bundle .dot{width:12px;height:12px;border-radius:999px;background:#9fe; box-shadow:0 0 14px #9fe}
+    .viz.bundle .d1{left:10%; top:43%}.viz.bundle .d2{left:32%; top:43%}.viz.bundle .d3{left:60%; top:43%}.viz.bundle .d4{right:10%; top:43%}
 
     /* ============== SCROLL ANIMS ============== */
     [data-animate]{opacity:0; transform:translateY(14px)}
@@ -239,7 +302,7 @@
 
     /* ===== Sticky CTA button ===== */
     .sticky-cta{
-      position:fixed; right:16px; bottom:16px; z-index:60;
+      position:fixed; right:16px; bottom:16px; z-index:70;
       transform:translateY(20px); opacity:0; pointer-events:none;
       transition:transform .25s ease, opacity .25s ease;
     }
@@ -336,7 +399,6 @@
           When people discover you, automations reply, qualify, and book time — without manual chasing.
         </p>
 
-        <!-- KPI Set B -->
         <div class="stats" aria-label="Key metrics">
           <div class="stat">
             <span class="num" data-count="45" data-suffix="d">0</span>
@@ -355,7 +417,6 @@
           Directional ranges from recent {{industry}} work; results vary and aren’t guaranteed.
         </small>
 
-        <!-- Outcomes -->
         <div class="outcomes" aria-label="Outcomes we optimize for">
           <div class="outcome" data-animate="pop">
             <div class="out-ico">🔎</div>
@@ -386,7 +447,7 @@
     </div>
   </section>
 
-  <!-- ================= HOW WE WORK (new rows) ================= -->
+  <!-- ================= HOW WE WORK (rows) ================= -->
   <section id="process">
     <div class="container">
       <div class="section-head">
@@ -425,7 +486,6 @@
         <h3 style="margin:14px 0 6px">What we do every day</h3>
         <p class="caption">Daily publishing that AI understands.</p>
 
-        <!-- flow -->
         <div class="flow" aria-label="Daily automation flow">
           <span class="step-pill" id="step-draft">Draft short answer</span>
           <span class="arrow">➜</span>
@@ -586,30 +646,70 @@
       </div>
 
       <div class="portfolio-grid">
-        <a class="work" href="#" aria-label="AI Search Visibility Case" data-animate="fade-up">
-          <img src="https://placehold.co/1200x750/webp?text=AI+Search+Visibility" alt="AI search visibility dashboard placeholder" />
+        <!-- AI Visibility -->
+        <div class="work" data-animate="fade-up">
+          <div class="viz ai">
+            <span class="scan"></span>
+            <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="node n5"></span>
+            <span class="link l1"></span><span class="link l2"></span><span class="link l3"></span><span class="link l4"></span>
+          </div>
           <div class="overlay"><div><span class="tag">AI Visibility</span><h4>From Invisible to Cited</h4><small>Entity schema + citation content → assistant mentions within 30 days.</small></div></div>
-        </a>
-        <a class="work" href="#" aria-label="Social Automation Case" data-animate="fade-up">
-          <img src="https://placehold.co/1200x750/webp?text=Social+Automation" alt="Social automation calendar placeholder" />
+        </div>
+
+        <!-- Social -->
+        <div class="work" data-animate="fade-up">
+          <div class="viz social">
+            <div class="calendar">
+              <!-- 28 cells -->
+              <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+              <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+              <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+              <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+            </div>
+            <div class="bubble b1"></div>
+            <div class="bubble b2"></div>
+          </div>
           <div class="overlay"><div><span class="tag">Social</span><h4>Hands-Off Posting & Inbox</h4><small>Scheduled posts + smart DMs → 2× replies, consistent weekly cadence.</small></div></div>
-        </a>
-        <a class="work" href="#" aria-label="CV Screening Case" data-animate="fade-up">
-          <img src="https://placehold.co/1200x750/webp?text=CV+Screening+Automation" alt="CV screening pipeline placeholder" />
+        </div>
+
+        <!-- CV Screening -->
+        <div class="work" data-animate="fade-up">
+          <div class="viz cv">
+            <div class="doc"></div>
+            <div class="line l1"></div><div class="line l2"></div><div class="line l3"></div><div class="line l4"></div>
+            <div class="scan"></div>
+            <div class="star"></div>
+          </div>
           <div class="overlay"><div><span class="tag">Recruitment</span><h4>Shortlists in Minutes</h4><small>Parsing + scoring + ATS sync → time-to-shortlist down 70%.</small></div></div>
-        </a>
-        <a class="work" href="#" aria-label="Email Automation Case" data-animate="fade-up">
-          <img src="https://placehold.co/1200x750/webp?text=Email+Automation" alt="Email automation performance placeholder" />
+        </div>
+
+        <!-- Email -->
+        <div class="work" data-animate="fade-up">
+          <div class="viz email">
+            <div class="env"></div><div class="flap"></div><div class="track"></div><div class="plane"></div>
+          </div>
           <div class="overlay"><div><span class="tag">Email</span><h4>Sequences that Convert</h4><small>Behavior triggers + deliverability → meetings booked on autopilot.</small></div></div>
-        </a>
-        <a class="work" href="#" aria-label="WhatsApp Automation Case" data-animate="fade-up">
-          <img src="https://placehold.co/1200x750/webp?text=WhatsApp+Automation" alt="WhatsApp automation flows placeholder" />
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="work" data-animate="fade-up">
+          <div class="viz wa">
+            <div class="phone"></div>
+            <div class="msg m1" style="width:70%"></div>
+            <div class="msg m2"></div>
+            <div class="msg m3" style="width:56%"></div>
+          </div>
           <div class="overlay"><div><span class="tag">WhatsApp</span><h4>Instant Answers, Human When Needed</h4><small>Onboarding & support flows + agent handover → higher CSAT.</small></div></div>
-        </a>
-        <a class="work" href="#" aria-label="Full Implementation Case" data-animate="fade-up">
-          <img src="https://placehold.co/1200x750/webp?text=Full+Implementation" alt="Full implementation placeholder" />
+        </div>
+
+        <!-- Full Implementation -->
+        <div class="work" data-animate="fade-up">
+          <div class="viz bundle">
+            <div class="pipe"></div>
+            <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><div class="dot d4"></div>
+          </div>
           <div class="overlay"><div><span class="tag">Bundle</span><h4>Full-Funnel Automation</h4><small>AI discovery → WhatsApp booking — tracked end to end.</small></div></div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
@@ -721,7 +821,7 @@
       setTimeout(type, 400);
     })();
 
-    // ===== HOW WE WORK animations (Row A–D) =====
+    // ===== HOW WE WORK animations =====
     (function(){
       const root=document.getElementById('how-work');
       if(!root) return;
@@ -737,7 +837,6 @@
       obs.observe(root);
 
       function startHowWork(){
-        // Row B flow sequence: Draft -> Approve -> Post
         const draft=document.getElementById('step-draft');
         const approve=document.getElementById('step-approve');
         const post=document.getElementById('step-post');
@@ -748,11 +847,9 @@
         setTimeout(()=>approve.classList.add('on'), 800);
         setTimeout(()=>{
           post.classList.add('on');
-          li.classList.add('posted');
-          web.classList.add('posted');
+          li.classList.add('posted'); web.classList.add('posted');
         }, 1600);
 
-        // Row C badge glow
         setTimeout(()=>{
           ['b1','b2','b3','b4'].forEach((id, i)=>{
             const el=document.getElementById(id);
@@ -762,7 +859,7 @@
       }
     })();
 
-    // ===== Count-up for KPI and Row D stats =====
+    // ===== Count-up for KPI + proof chips =====
     (function(){
       const nums=document.querySelectorAll('.num[data-count]');
       if(!nums.length) return;
@@ -776,6 +873,21 @@
         if(e.isIntersecting){const el=e.target; run(el, +el.dataset.count, el.dataset.suffix||''); obs.unobserve(el);}
       }),{threshold:.5});
       nums.forEach(n=>io.observe(n));
+    })();
+
+    // ===== Selected Results: start animations when in view (optional hook) =====
+    (function(){
+      const cards=document.querySelectorAll('.work');
+      if(!cards.length) return;
+      const ob=new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{
+          if(en.isIntersecting){
+            en.target.classList.add('play'); // reserved if you want play-state toggles
+            ob.unobserve(en.target);
+          }
+        });
+      },{threshold:.3});
+      cards.forEach(c=>ob.observe(c));
     })();
 
     // ===== Sticky CTA visibility (after hero) =====
@@ -794,3 +906,8 @@
 </body>
 </html>
 ```
+
+**How to run locally**
+
+1. Copy everything above into a file named `index.html`.
+2. Double-click to open it in your browser (or run a static server like `npx serve .`).
