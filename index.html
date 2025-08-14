@@ -130,7 +130,6 @@
       margin-inline:auto;
     }
     #benefits .lead{font-size:18px; color:var(--muted); margin:8px 0 18px}
-    /* Proof bar – roomy and centered */
     .stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:6px 0 10px}
     @media (max-width:760px){.stats{grid-template-columns:1fr 1fr}}
     .stat{display:flex; align-items:baseline; gap:10px; padding:14px 16px; border:1px solid var(--line); border-radius:14px;
@@ -138,7 +137,6 @@
     .num{font-size:30px; font-weight:800; line-height:1; background:linear-gradient(135deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
     .label{color:var(--muted); font-size:14px}
 
-    /* Outcomes – fewer columns for air */
     .outcomes{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px}
     @media (max-width:760px){.outcomes{grid-template-columns:1fr}}
     .outcome{display:grid; grid-template-columns:36px 1fr; gap:12px; align-items:center; padding:14px; border:1px solid var(--line); border-radius:14px;
@@ -149,7 +147,7 @@
     .out-title{font-weight:800}
     .out-sub{color:var(--muted); font-size:14px; margin-top:2px}
 
-    /* ================= PROCESS (cleaner layout) ================= */
+    /* ================= HOW WE WORK (new rows) ================= */
     #process .card{
       background:color-mix(in oklab,var(--panel) 90%, #000 10%);
       border:1px solid color-mix(in oklab, var(--line) 78%, #fff 22%);
@@ -157,41 +155,46 @@
       padding:clamp(20px,3vw,32px);
       box-shadow:var(--shadow);
     }
-    .steps{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-    @media (max-width:860px){.steps{grid-template-columns:1fr}}
-    .step{border:1px solid var(--line); border-radius:14px; padding:14px; background:rgba(255,255,255,.03)}
-    .step h4{margin:0 0 8px}
-    .mini-vis{position:relative; border:1px dashed color-mix(in oklab, var(--line) 80%, #fff 20%); border-radius:12px; padding:12px; min-height:96px; overflow:hidden;
-      background:rgba(255,255,255,.02)}
-    .note{color:var(--muted); font-size:13px; margin-top:8px}
+    .row{display:grid; gap:14px; margin-bottom:18px}
+    .row.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .row.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .row.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width:980px){.row.grid-4{grid-template-columns:1fr 1fr}}
+    @media (max-width:720px){
+      .row.grid-3{grid-template-columns:1fr}
+      .row.grid-2{grid-template-columns:1fr}
+    }
+    .mini-card{border:1px solid var(--line); border-radius:14px; padding:14px; background:rgba(255,255,255,.03); position:relative}
+    .mini-card h4{margin:0 0 6px}
+    .ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#031322; box-shadow:inset 0 0 18px rgba(255,255,255,.2)}
+    .caption{color:var(--muted); font-size:13px; margin-top:2px}
 
-    /* elements reused inside process visuals */
-    .search-bar{display:flex; align-items:center; gap:8px; padding:8px 10px; background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:999px}
-    .search-text{white-space:nowrap; overflow:hidden}
-    .caret-s{width:8px;height:16px;margin-left:2px;background:#8fd5ff;border-radius:2px;opacity:0}
-    @keyframes blink{0%,49%{opacity:1} 50%,100%{opacity:0}}
-    #caret-search.typing{animation:blink 1s steps(2, jump-none) infinite}
+    /* Row B: flow */
+    .flow{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:10px}
+    .step-pill{border:1px solid var(--line); border-radius:999px; padding:6px 10px; font-size:13px; color:var(--muted); background:rgba(255,255,255,.04); position:relative}
+    .step-pill.on{color:var(--text); border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%); box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.4s ease-out 2}
+    .arrow{opacity:.6}
+    .phone{border:1px solid var(--line); border-radius:18px; width:160px; height:280px; background:rgba(255,255,255,.03); margin-inline:auto; display:grid; grid-template-rows:1fr auto; padding:12px; position:relative}
+    .phone .screen{border:1px dashed color-mix(in oklab, var(--line) 80%, #fff 20%); border-radius:10px; background:rgba(255,255,255,.02)}
+    .approve-btn{margin-top:10px; justify-self:center; border:1px solid var(--line); background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; font-weight:800; border-radius:999px; padding:6px 10px; cursor:default; opacity:.7}
+    .approve-btn.done{box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.6s ease-out 2; opacity:1}
+    .post-card.posted{border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%); box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.2s ease-out 2}
+    .check{position:absolute; right:10px; top:10px; width:22px;height:22px;border-radius:999px; display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#041318; opacity:0; transform:scale(.6)}
+    .post-card.posted .check{opacity:1; transform:none; transition:all .25s ease}
 
-    .pub-wrap{display:grid; grid-template-columns:1fr 1fr; gap:10px}
-    .pub-card{background:rgba(255,255,255,.06); border:1px solid var(--line); border-radius:10px; padding:10px; transform:translateY(16px); opacity:.0}
-    .pub-card.show{transform:none; opacity:1; transition:all .5s cubic-bezier(.2,.65,.2,1)}
-    .pub-badge{font-size:11px; color:var(--text); background:linear-gradient(135deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; border:1px solid color-mix(in oklab, var(--accent) 30%, #fff 70%); border-radius:999px; padding:2px 6px}
-    .mini-ai{padding:10px; border:1px solid var(--line); border-radius:10px; background:rgba(255,255,255,.04); transform:translateY(10px); opacity:.0}
-    .mini-ai.show{transform:none; opacity:1; transition:all .5s cubic-bezier(.2,.65,.2,1)}
-    .mini-row{height:8px; border-radius:6px; background:rgba(255,255,255,.08); margin:6px 0; position:relative; overflow:hidden}
-    .mini-row::after{content:""; position:absolute; inset:0; transform:translateX(-100%); background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent); animation:shimmer 2.2s infinite}
-    .mini-srcs{display:flex; gap:6px; margin-top:4px; flex-wrap:wrap}
-    .src{font-size:11px; color:var(--muted); border:1px solid var(--line); padding:3px 6px; border-radius:999px; background:rgba(255,255,255,.04)}
-    .src.upjolt{border-color: color-mix(in oklab, var(--accent) 40%, var(--line) 60%)}
-    .src.upjolt.glow{box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.8s ease-out 2}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(32,178,255,.45)}100%{box-shadow:0 0 0 22px rgba(32,178,255,0)}}
+    /* Row C badges */
+    .badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+    .badge-chip{font-size:12px; border:1px solid var(--line); padding:5px 8px; border-radius:999px; background:rgba(255,255,255,.04)}
+    .badge-chip.glow{box-shadow:0 0 0 0 rgba(32,178,255,.45); animation:pulse 1.4s ease-out 2}
 
-    .bars{display:grid; gap:6px; margin-top:2px}
-    .bar{height:10px; border-radius:8px; background:rgba(255,255,255,.06); position:relative; overflow:hidden}
-    .bar > span{position:absolute; inset:0; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-2));}
-    .bar.grow > span{transition:width .9s cubic-bezier(.2,.65,.2,1)}
+    /* Row D stats chips */
+    .stat-chip{display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.03)}
+    .stat-chip .num{font-size:26px}
 
-    /* ================= SERVICES/RESULTS/CONTACT (trimmed styles) ================= */
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(32,178,255,.45)}100%{box-shadow:0 0 0 20px rgba(32,178,255,0)}}
+
+    /* ================= SERVICES/RESULTS/CONTACT (unchanged) ================= */
     .services{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(16px,2.2vw,22px)}
     @media (max-width:900px){.services{grid-template-columns:1fr 1fr}}
     @media (max-width:580px){.services{grid-template-columns:1fr}}
@@ -256,6 +259,7 @@
         <ul>
           <li><a href="#hero" class="nav-link active">Home</a></li>
           <li><a href="#benefits" class="nav-link">About</a></li>
+          <li><a href="#process" class="nav-link">How we work</a></li>
           <li><a href="#services" class="nav-link">Services</a></li>
           <li><a href="#portfolio" class="nav-link">Results</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -317,7 +321,7 @@
     </div>
   </section>
 
-  <!-- ================= BENEFITS (wide & airy) ================= -->
+  <!-- ================= BENEFITS ================= -->
   <section id="benefits">
     <div class="container">
       <div class="section-head">
@@ -332,7 +336,7 @@
           When people discover you, automations reply, qualify, and book time — without manual chasing.
         </p>
 
-        <!-- KPI Set B with simplified wording (non-guaranteed) -->
+        <!-- KPI Set B -->
         <div class="stats" aria-label="Key metrics">
           <div class="stat">
             <span class="num" data-count="45" data-suffix="d">0</span>
@@ -351,7 +355,7 @@
           Directional ranges from recent {{industry}} work; results vary and aren’t guaranteed.
         </small>
 
-        <!-- Outcomes (spacious, 2 columns) -->
+        <!-- Outcomes -->
         <div class="outcomes" aria-label="Outcomes we optimize for">
           <div class="outcome" data-animate="pop">
             <div class="out-ico">🔎</div>
@@ -382,82 +386,117 @@
     </div>
   </section>
 
-  <!-- ================= PROCESS (separate, cleaner) ================= -->
+  <!-- ================= HOW WE WORK (new rows) ================= -->
   <section id="process">
     <div class="container">
       <div class="section-head">
         <h2 data-animate="fade-up">How we work</h2>
-        <p data-animate="fade-left">A simple 4-step system — set up once, improves weekly.</p>
+        <p data-animate="fade-left">ELI5: how AI builds answers, what we publish daily, and why that gets you cited.</p>
       </div>
 
       <div class="card" id="how-work" data-animate="fade-up">
-        <div class="steps">
-          <!-- Step 1 -->
-          <div class="step">
-            <h4>1) Your buyers are searching</h4>
-            <div class="mini-vis">
-              <div class="search-bar">
-                <span class="search-icon">🔎</span>
-                <span class="search-text" id="hw-query"></span>
-                <span class="caret-s" id="caret-search"></span>
-              </div>
-              <div class="note">We map the questions your buyers ask.</div>
-            </div>
+        <!-- Row A -->
+        <h3 style="margin:0 0 8px">How AI gets its answers</h3>
+        <div class="row grid-4" aria-label="How AI builds answers">
+          <div class="mini-card" data-animate="pop">
+            <div class="ico">❓</div>
+            <h4>1) Someone asks</h4>
+            <p class="caption">ChatGPT/Copilot gets a question like “best email tool?”</p>
           </div>
-
-          <!-- Step 2 -->
-          <div class="step">
-            <h4>2) We create & publish daily</h4>
-            <div class="mini-vis">
-              <div class="pub-wrap">
-                <div class="pub-card" id="pub-li">
-                  <span class="pub-badge">LinkedIn</span>
-                  <div class="mini-row"></div><div class="mini-row"></div>
-                </div>
-                <div class="pub-card" id="pub-web">
-                  <span class="pub-badge">Website</span>
-                  <div class="mini-row"></div><div class="mini-row"></div>
-                </div>
-              </div>
-              <div class="note">Short answers, evidence pages, and schema your AI assistants can trust.</div>
-            </div>
+          <div class="mini-card" data-animate="pop" data-delay="100">
+            <div class="ico">🗓️</div>
+            <h4>2) It looks for clear, recent pages</h4>
+            <p class="caption">Fresh, easy-to-read content wins.</p>
           </div>
-
-          <!-- Step 3 -->
-          <div class="step">
-            <h4>3) AI finds & recommends you</h4>
-            <div class="mini-vis">
-              <div class="mini-ai" id="mini-ai">
-                <div class="mini-row" style="width:85%"></div>
-                <div class="mini-row" style="width:70%"></div>
-                <div class="mini-row" style="width:55%"></div>
-                <div class="mini-srcs">
-                  <span class="src">industry report</span>
-                  <span class="src">schema docs</span>
-                  <span class="src upjolt" id="src-upjolt">upjolt.ai</span>
-                </div>
-              </div>
-              <div class="note">Assistants cite your content as a trusted source.</div>
-            </div>
+          <div class="mini-card" data-animate="pop" data-delay="180">
+            <div class="ico">🔗</div>
+            <h4>3) It trusts matching sources</h4>
+            <p class="caption">Same answer on LinkedIn and your site → more trust.</p>
           </div>
+          <div class="mini-card" data-animate="pop" data-delay="260">
+            <div class="ico">🧩</div>
+            <h4>4) It builds the reply</h4>
+            <p class="caption">It quotes and links to the source it trusts.</p>
+          </div>
+        </div>
+        <p class="caption">Be clear, be current, be consistent — that’s what AI picks.</p>
 
-          <!-- Step 4 -->
-          <div class="step">
-            <h4>4) Measure, improve & report</h4>
-            <div class="mini-vis">
-              <div class="bars">
-                <div class="bar" data-val="78"><span></span></div>
-                <div class="bar" data-val="62"><span></span></div>
-                <div class="bar" data-val="90"><span></span></div>
-              </div>
-              <div class="note">Weekly insights: visibility, replies, bookings — and what to ship next.</div>
+        <!-- Row B -->
+        <h3 style="margin:14px 0 6px">What we do every day</h3>
+        <p class="caption">Daily publishing that AI understands.</p>
+
+        <!-- flow -->
+        <div class="flow" aria-label="Daily automation flow">
+          <span class="step-pill" id="step-draft">Draft short answer</span>
+          <span class="arrow">➜</span>
+          <span class="step-pill" id="step-approve">Phone: reply “Approve”</span>
+          <span class="arrow">➜</span>
+          <span class="step-pill" id="step-post">Auto-post to LinkedIn + Website</span>
+        </div>
+
+        <div class="row grid-2">
+          <div class="mini-card post-card" id="card-li">
+            <div class="check">✓</div>
+            <div class="ico">in</div>
+            <h4>LinkedIn</h4>
+            <p class="caption">Bite-size answer post. Auto-posted after your tap; link back to your site.</p>
+          </div>
+          <div class="mini-card post-card" id="card-web">
+            <div class="check">✓</div>
+            <div class="ico">🌐</div>
+            <h4>Website</h4>
+            <p class="caption">Simple “answer” page with proof (screens, FAQ). Easy AI labels so assistants can read it.</p>
+          </div>
+        </div>
+        <p class="caption">Same answer in both places, linked together = easy for AI to find and quote you.</p>
+
+        <!-- Row C -->
+        <h3 style="margin:14px 0 6px">Why this makes AI show you</h3>
+        <div class="row grid-3">
+          <div class="mini-card" data-animate="pop">
+            <div class="ico">🆕</div>
+            <h4>Fresh</h4>
+            <p class="caption">New answers keep you current.</p>
+          </div>
+          <div class="mini-card" data-animate="pop" data-delay="100">
+            <div class="ico">🧾</div>
+            <h4>Clear</h4>
+            <p class="caption">Simple pages AI can quote.</p>
+          </div>
+          <div class="mini-card" data-animate="pop" data-delay="180">
+            <div class="ico">🔗</div>
+            <h4>Connected</h4>
+            <p class="caption">LinkedIn ↔ Website links say “this is the source.”</p>
+            <div class="badges" style="margin-top:6px">
+              <span class="badge-chip" id="b1">answer page</span>
+              <span class="badge-chip" id="b2">AI labels</span>
+              <span class="badge-chip" id="b3">LinkedIn link</span>
+              <span class="badge-chip" id="b4">sitemap updated</span>
             </div>
           </div>
         </div>
 
-        <!-- Mini CTA -->
-        <div class="cta" style="margin-top:14px">
+        <!-- Row D -->
+        <h3 style="margin:14px 0 6px">Proof & next step</h3>
+        <div class="row grid-3">
+          <div class="stat-chip">
+            <span class="num" data-count="30" data-suffix="d">0</span>
+            <span class="caption">first AI mentions from kickoff</span>
+          </div>
+          <div class="stat-chip">
+            <span class="num" data-count="2" data-suffix="×">0</span>
+            <span class="caption">more replies from AI-found visitors</span>
+          </div>
+          <div class="stat-chip">
+            <span class="num" data-count="70" data-suffix="%">0</span>
+            <span class="caption">key questions covered with clear answers</span>
+          </div>
+        </div>
+        <small class="caption">Benchmarks from recent pilots; results vary.</small>
+
+        <div class="cta" style="margin-top:12px">
           <a class="btn btn-primary btn-sm" href="#contact">Get a free plan</a>
+          <a class="btn btn-ghost btn-sm" href="#services">See services</a>
         </div>
       </div>
     </div>
@@ -682,7 +721,7 @@
       setTimeout(type, 400);
     })();
 
-    // ===== HOW WE WORK animations (trigger once on view) =====
+    // ===== HOW WE WORK animations (Row A–D) =====
     (function(){
       const root=document.getElementById('how-work');
       if(!root) return;
@@ -690,82 +729,40 @@
       const obs=new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
           if(entry.isIntersecting){
-            startPipeline();
+            startHowWork();
             obs.disconnect();
           }
         });
-      }, {threshold:0.3});
+      }, {threshold:0.25});
       obs.observe(root);
 
-      function startPipeline(){
-        // Step 1: Search queries typing loop (SaaS, e-comm, real estate, marketing)
-        const qEl=document.getElementById('hw-query');
-        const caret=document.getElementById('caret-search');
-        const queries=[
-          // SaaS / B2B software
-          "best {category} tool for {{industry}} SMBs",
-          "{your brand} vs {competitor} — which for {use-case}?",
-          "does {brand} integrate with Slack/HubSpot/Salesforce?",
-          "pricing for {brand} with {N} seats",
-          "GDPR/HIPAA compliant {category}?",
-          // E-commerce
-          "best {category} app for Shopify stores",
-          "reduce cart abandonment with {brand}/{tool}",
-          "does {brand} connect to Shopify/Stripe/Klaviyo?",
-          "A/B testing tools for PDPs in {{industry}}",
-          "how to sync UGC reviews to PDP with {brand}",
-          // Real estate
-          "best CRM for real-estate agents in {{industry}}",
-          "{brand} vs {competitor} for lead routing & follow-ups",
-          "does {brand} integrate with Zillow/Realtor.com?",
-          "text-to-tour automation for listings",
-          "brokerage-wide drip campaigns with {brand}",
-          // Marketing
-          "best marketing automation for {{industry}}",
-          "multi-channel sequences (email + WhatsApp) with {brand}",
-          "connect {brand} to Meta/Google Ads audiences",
-          "lead scoring rules for {category} in B2B",
-          "track bookings from AI answers with {brand}"
-        ];
-        let qi=0, ci=0, deleting=false;
-        caret.classList.add('typing');
-        function tick(){
-          const word=queries[qi];
-          if(!deleting){
-            qEl.textContent=word.slice(0,++ci);
-            if(ci===word.length){ deleting=true; setTimeout(tick, 800); return; }
-          }else{
-            qEl.textContent=word.slice(0,--ci);
-            if(ci===0){ deleting=false; qi=(qi+1)%queries.length; setTimeout(tick, 200); return; }
-          }
-          setTimeout(tick, 28);
-        }
-        tick();
+      function startHowWork(){
+        // Row B flow sequence: Draft -> Approve -> Post
+        const draft=document.getElementById('step-draft');
+        const approve=document.getElementById('step-approve');
+        const post=document.getElementById('step-post');
+        const li=document.getElementById('card-li');
+        const web=document.getElementById('card-web');
 
-        // Step 2: show publish cards
-        setTimeout(()=>document.getElementById('pub-li').classList.add('show'), 600);
-        setTimeout(()=>document.getElementById('pub-web').classList.add('show'), 850);
-
-        // Step 3: reveal mini AI + glow Upjolt
+        draft.classList.add('on');
+        setTimeout(()=>approve.classList.add('on'), 800);
         setTimeout(()=>{
-          const ai=document.getElementById('mini-ai');
-          const src=document.getElementById('src-upjolt');
-          ai.classList.add('show');
-          setTimeout(()=>src.classList.add('glow'), 550);
-        }, 1200);
+          post.classList.add('on');
+          li.classList.add('posted');
+          web.classList.add('posted');
+        }, 1600);
 
-        // Step 4: grow bars
+        // Row C badge glow
         setTimeout(()=>{
-          document.querySelectorAll('#how-work .bar').forEach(bar=>{
-            const val=+bar.getAttribute('data-val') || 0;
-            bar.classList.add('grow');
-            requestAnimationFrame(()=>bar.querySelector('span').style.width=val+'%');
+          ['b1','b2','b3','b4'].forEach((id, i)=>{
+            const el=document.getElementById(id);
+            if(el) setTimeout(()=>el.classList.add('glow'), i*180);
           });
-        }, 1500);
+        }, 1900);
       }
     })();
 
-    // ===== Count-up for proof bar =====
+    // ===== Count-up for KPI and Row D stats =====
     (function(){
       const nums=document.querySelectorAll('.num[data-count]');
       if(!nums.length) return;
@@ -788,7 +785,6 @@
       if(!sticky || !hero) return;
       const ob=new IntersectionObserver(entries=>{
         entries.forEach(en=>{
-          // When hero is NOT intersecting, show CTA
           sticky.classList.toggle('show', !en.isIntersecting);
         });
       }, {root:null, threshold:0, rootMargin:"-64px 0px 0px 0px"});
